@@ -18,6 +18,11 @@ $ sudo npm install -g grunt-cli
 
 With a terminal in the directory of the repo, run sudo npm install && bower install && grunt. The app should now be running on localhost:3000. Change any configs needed in config/env.
 
+## File Structure
+
+* app contains the server side logic including routes, DB models and controllers.
+* config contains authorization strategies and typical config files.
+* public contains all the client side logic, especially Angular stuff.
 
 ### Thanks to
 
