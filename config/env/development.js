@@ -6,8 +6,8 @@ module.exports = {
 		title: 'threeaday - Development Environment'
 	},
 	facebook: {
-		clientID: process.env.FACEBOOK_ID || 'APP_ID',
-		clientSecret: process.env.FACEBOOK_SECRET || 'APP_SECRET',
+		clientID: process.env.FACEBOOK_ID || '523145184486195',
+		clientSecret: process.env.FACEBOOK_SECRET || '8be03aab1221fe5b83b0ad44dd5ec90f',
 		callbackURL: '/auth/facebook/callback'
 	},
 	twitter: {
@@ -16,8 +16,8 @@ module.exports = {
 		callbackURL: '/auth/twitter/callback'
 	},
 	google: {
-		clientID: process.env.GOOGLE_ID || 'APP_ID',
-		clientSecret: process.env.GOOGLE_SECRET || 'APP_SECRET',
+		clientID: process.env.GOOGLE_ID || '658083415920-fa471rittkf438t6m7rdm1oo1r75e38q.apps.googleusercontent.com',
+		clientSecret: process.env.GOOGLE_SECRET || 'HUN7ZvX0NWAXzQcy8MvMxkt6',
 		callbackURL: '/auth/google/callback'
 	},
 	linkedin: {

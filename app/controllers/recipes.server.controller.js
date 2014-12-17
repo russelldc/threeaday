@@ -195,7 +195,7 @@ exports.delete = function(req, res) {
  * List of Recipes
  */
 exports.list = function(req, res) { 
-	Recipe.find().sort('-created').populate('user', 'displayName').exec(function(err, recipes) {
+	Recipe.find().sort('-created').populate('user', '_id').exec(function(err, recipes) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
@@ -210,7 +210,7 @@ exports.list = function(req, res) {
  * Recipe middleware
  */
 exports.recipeByID = function(req, res, next, id) { 
-	Recipe.findById(id).populate('user', 'displayName').exec(function(err, recipe) {
+	Recipe.findById(id).populate('user', '_id').exec(function(err, recipe) {
 		if (err) return next(err);
 		if (! recipe) return next(new Error('Failed to load Recipe ' + id));
 		req.recipe = recipe ;
