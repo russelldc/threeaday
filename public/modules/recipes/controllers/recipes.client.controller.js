@@ -8,9 +8,12 @@ angular.module('recipes').controller('RecipesController', ['$scope', '$http', '$
 		// Create new Recipe
 		$scope.create = function() {
 			$scope.showProgress = true;
+			var self = this;
 			$http.post('/recipes/custom', this.customRecipe).success(function(response) {
 				$scope.showProgress = false;
 				console.log(response);
+				self.customRecipe = '';
+				$scope.showSimpleToast();
 			}).error(function(response) {
 				$scope.showProgress = false;
 				$scope.error = response.message;

@@ -49,11 +49,21 @@
                 </div>
             </div>
             <div role="tabpanel" class="tab2-content" aria-labelledby="tab2" ng-switch-when="1" md-swipe-left="next()" md-swipe-right="previous()">
-                <div class="col-md-7 column">
+                <div class="col-md-12 column">
                 <form data-ng-submit="create()" class="custom-recipe form-horizontal" autocomplete="off">
                     <fieldset>
                         <md-text-float label="Name" data-ng-model="customRecipe.name" id="recipeName" name="recipeName" class="form-group" > </md-text-float>
                         <md-text-float label="Image" data-ng-model="customRecipe.image" id="recipeImage" name="recipeImage" class="form-group"> </md-text-float>
+                        <md-text-float label="Preparation Time" data-ng-model="customRecipe.preparationTime"  class="form-group"> </md-text-float>
+                        <md-text-float label="Cook Time" data-ng-model="customRecipe.cookingTime"  class="form-group"> </md-text-float>
+
+                        <label for="textAreaIngredients" class="form-group text-muted control-label">Ingredients</label>
+                        <textarea class="form-control form-group" data-ng-model="customRecipe.ingredients" rows="3" id="textAreaIngredients"></textarea>
+
+                        <label for="textAreaDirections" class="form-group text-muted control-label">Directions</label>
+                        <textarea class="form-control form-group" data-ng-model="customRecipe.directions" rows="3" id="textAreaDirections"></textarea>
+
+                        <!--<md-text-float label="Directions" data-ng-model="customRecipe.directions"  class="form-group"> </md-text-float>-->
                         <br>
                         <div class="form-group">
                             <md-button class="md-raised md-primary btn-padding" type="submit">Create Recipe</md-button>

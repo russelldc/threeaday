@@ -94,13 +94,12 @@ exports.importRec = function(req, res) {
 				});
 
 				$('div[itemprop=recipeInstructions] p').each(function(i, element) {
-					importedRecipe.directions += $(this)[0].children[0].data.trim() + "\n";
+					importedRecipe.directions += (i+1) + ". " + $(this)[0].children[0].data.trim() + '\n';
 				});
 			}
 
 			else if (scrapeMode === 'allrecipes') {
 				$('h1[id=itemTitle]').filter(function() {
-					console.log($(this)[0].children[0].data);
 					importedRecipe.name = $(this)[0].children[0].data;
 				});
 
@@ -108,7 +107,29 @@ exports.importRec = function(req, res) {
 					importedRecipe.image = $(this)[0].attribs.src;
 				});
 
+				$('time[itemprop=prepTime]').filter(function() {
+					var data = $(this)[0].attribs.datetime;
+					data = data.replace(/PT/ig, '').replace(/M/ig, ' minutes').replace(/H/ig, ' hours ');
+					importedRecipe.preparationTime = data;
+				});
+				$('time[itemprop=cookTime]').filter(function() {
+					var data = $(this)[0].attribs.datetime;
+					data = data.replace(/PT/ig, '').replace(/M/ig, ' minutes').replace(/H/ig, ' hours ');
+					importedRecipe.cookingTime = data;
+				});
+				$('span[class="plaincharacterwrap break"]').each(function(i, element) {
+					importedRecipe.directions += (i+1) + ". " + $(this)[0].children[0].data + '\n';
+				});
+				$('p[itemprop=ingredients]').each(function(i, element) {
+					var str =  $(this)[0].children[1].children[0].data;
+					var str2 = $(this)[0].children[3].children[0].data;
+					try {
+						importedRecipe.ingredients += str + " " + str2 + '\n';
+					} catch(e) {
+					}
 
+
+				});
 			}
 
 			var recipe = new Recipe(importedRecipe);
