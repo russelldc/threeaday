@@ -6,7 +6,9 @@
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors.server.controller'),
 	Recipe = mongoose.model('Recipe'),
-	_ = require('lodash');
+	_ = require('lodash'),
+	request = require('request'),
+	cheerio = require('cheerio');
 
 /**
  * Create a Recipe
@@ -22,6 +24,105 @@ exports.create = function(req, res) {
 			});
 		} else {
 			res.jsonp(recipe);
+		}
+	});
+};
+
+/**
+ * Import a Recipe
+ */
+exports.importRec = function(req, res) {
+	var importedRecipe = {name: '', image: '', ingredients: '', directions: '', preparationTime: '', cookingTime: ''},
+		url = req.body.recipeUrl,
+		scrapeMode;
+
+	function cleanUp(url) {
+		url = url.trim();
+
+		if(url.search(/^https?\:\/\//) !== -1)
+			url = url.match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i, '');
+		else
+			url = url.match(/^([^\/?#]+)(?:[\/?#]|$)/i, '');
+		return url[1];
+	}
+
+	if (cleanUp(url) === 'www.foodnetwork.com' || cleanUp(url) === 'foodnetwork.com')
+		scrapeMode = 'foodnetwork';
+	else if (cleanUp(url) === 'allrecipes.com' || cleanUp(url) === 'www.allrecipes.com')
+		scrapeMode = 'allrecipes';
+
+	else {
+		return res.status(400).send({
+			message: 'Incorrect URL. Please check affiliates list.'
+		});
+	}
+
+	request(url, function(error, response, html){
+		if(!error){
+			var $ = cheerio.load(html);
+
+
+			if (scrapeMode === 'foodnetwork') {
+
+				$('h1[itemprop=name]').filter(function() {
+					var data = $(this);
+					importedRecipe.name = data[0].children[0].data;
+				});
+				$('img[itemprop=image]').filter(function() {
+					var data = $(this);
+					importedRecipe.image = data[0].attribs.src;
+				});
+				$('meta[itemprop=prepTime]').filter(function() {
+					var data = $(this)[0].attribs.content;
+					data = data.replace(/PT/ig, '').replace(/M/ig, ' minutes').replace(/H/ig, ' hours ');
+					importedRecipe.preparationTime = data;
+				});
+				$('meta[itemprop=cookTime]').filter(function() {
+					var data = $(this)[0].attribs.content;
+					data = data.replace(/PT/ig, '').replace(/M/ig, ' minutes').replace(/H/ig, ' hours ');
+					importedRecipe.cookingTime = data;
+				});
+
+				$('li[itemprop=ingredients]').each(function(i, element) {
+					importedRecipe.ingredients += $(this)[0].children[0].data.trim();
+
+					if ($(this)[0].children[0].next !== null && $(this)[0].children[0].next.children[0].data != 'NaN') {
+						importedRecipe.ingredients += +$(this)[0].children[0].next.children[0].data;
+					}
+
+					importedRecipe.ingredients += "\n";
+				});
+
+				$('div[itemprop=recipeInstructions] p').each(function(i, element) {
+					importedRecipe.directions += $(this)[0].children[0].data.trim() + "\n";
+				});
+			}
+
+			else if (scrapeMode === 'allrecipes') {
+				$('h1[id=itemTitle]').filter(function() {
+					console.log($(this)[0].children[0].data);
+					importedRecipe.name = $(this)[0].children[0].data;
+				});
+
+				$('img[id=imgPhoto]').filter(function() {
+					importedRecipe.image = $(this)[0].attribs.src;
+				});
+
+
+			}
+
+			var recipe = new Recipe(importedRecipe);
+			recipe.user = req.user;
+
+			recipe.save(function(err) {
+				if (err) {
+					return res.status(400).send({
+						message: errorHandler.getErrorMessage(err)
+					});
+				} else {
+					res.jsonp(recipe);
+				}
+			});
 		}
 	});
 };

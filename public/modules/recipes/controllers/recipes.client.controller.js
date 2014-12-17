@@ -1,27 +1,21 @@
 'use strict';
 
 // Recipes controller
-angular.module('recipes').controller('RecipesController', ['$scope', '$http', '$stateParams', '$location', 'Authentication', 'Recipes',
-	function($scope, $http, $stateParams, $location, Authentication, Recipes) {
+angular.module('recipes').controller('RecipesController', ['$scope', '$http', '$stateParams', '$location', 'Authentication', 'Recipes', '$mdToast',
+	function($scope, $http, $stateParams, $location, Authentication, Recipes, $mdToast) {
 		$scope.authentication = Authentication;
 
 		// Create new Recipe
 		$scope.create = function() {
-			// Create new Recipe object
-			var recipe = new Recipes ({
-				name: this.recipeName,
-				image: this.recipeImage
+			$scope.showProgress = true;
+			$http.post('/recipes/custom', this.customRecipe).success(function(response) {
+				$scope.showProgress = false;
+				console.log(response);
+			}).error(function(response) {
+				$scope.showProgress = false;
+				$scope.error = response.message;
 			});
 
-			// Redirect after save
-			recipe.$save(function(response) {
-				$location.path('recipes/' + response._id);
-
-				// Clear form fields
-				$scope.name = '';
-			}, function(errorResponse) {
-				$scope.error = errorResponse.data.message;
-			});
 		};
 
 		// Remove existing Recipe
@@ -64,11 +58,23 @@ angular.module('recipes').controller('RecipesController', ['$scope', '$http', '$
 			});
 		};
 
-		$scope.importRecipe = function() {
-			$http.post('/recipes/import', $scope.importRecipe).success(function(response) {
-				console.log("Imported recipe");
-				console.log(response);
+		$scope.showSimpleToast = function() {
+			$mdToast.show({
+				template: '<md-toast>Successfully imported a new recipe!</md-toast>',
+				hideDelay: 2000,
+				position: 'bottom left'
+			});
+		};
+
+		$scope.importRec = function() {
+			$scope.showProgress = true;
+			var self = this;
+			$http.post('/recipes/import', this.importRecipe).success(function(response) {
+				$scope.showProgress = false;
+				self.importRecipe.recipeUrl = '';
+				$scope.showSimpleToast();
 			}).error(function(response) {
+				$scope.showProgress = false;
 				$scope.error = response.message;
 			});
 		};

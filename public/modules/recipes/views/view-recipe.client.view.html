@@ -1,21 +1,49 @@
 <section data-ng-controller="RecipesController" data-ng-init="findOne()">
-	<div class="page-header">
-		<h1 data-ng-bind="recipe.name"></h1>
-	</div>
-	<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == recipe.user._id))">
-		<a class="btn btn-primary" href="/#!/recipes/{{recipe._id}}/edit">
-			<i class="glyphicon glyphicon-edit"></i>
-		</a>
-		<a class="btn btn-primary" data-ng-click="remove();">
-			<i class="glyphicon glyphicon-trash"></i>
-		</a>
-	</div>
-	<small>
-		<em class="text-muted">
-			Posted on
-			<span data-ng-bind="recipe.created | date:'mediumDate'"></span>
-			by
-			<span data-ng-bind="recipe.user.displayName"></span>
-		</em>
-	</small>
+    <div class="page-header">
+        <h1 data-ng-bind="recipe.name"></h1>
+    </div>
+    <div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == recipe.user._id))">
+        <a class="btn btn-primary" href="/#!/recipes/{{recipe._id}}/edit">
+            <i class="glyphicon glyphicon-edit"></i>
+        </a>
+        <a class="btn btn-primary" data-ng-click="remove();">
+            <i class="glyphicon glyphicon-trash"></i>
+        </a>
+    </div>
+    <div class="row">
+        <div class="col-sm-5">
+        <img class="img-responsive" data-ng-src="{{recipe.image}}">
+            </div>
+
+        <div class="col-sm-5">
+        <strong style="font-size: 15px;">Preparation Time: {{recipe.preparationTime}} <br>
+        Cook Time: {{recipe.cookingTime}}</strong>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-5">
+            <div class="panel panel-primary list-card">
+                <div class="panel-heading">Ingredients</div>
+                <div class="panel-body">
+                    <div style="white-space: pre-wrap;" data-ng-bind="recipe.ingredients"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-5">
+            <div class="panel panel-primary list-card">
+                <div class="panel-heading">Directions</div>
+                <div class="panel-body">
+                    <div style="white-space: pre-wrap;" data-ng-bind="recipe.directions"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <small>
+        <em class="text-muted">
+            Added on
+            <span data-ng-bind="recipe.created | date:'mediumDate'"></span>
+        </em>
+    </small>
 </section>

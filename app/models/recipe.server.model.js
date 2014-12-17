@@ -20,6 +20,22 @@ var RecipeSchema = new Schema({
 		type: String,
 		default: ''
 	},
+	ingredients: {
+		type: String,
+		default: ''
+	},
+	directions: {
+		type: String,
+		default: ''
+	},
+	preparationTime: {
+		type: String,
+		default: ''
+	},
+	cookingTime: {
+		type: String,
+		default: ''
+	},
 	created: {
 		type: Date,
 		default: Date.now

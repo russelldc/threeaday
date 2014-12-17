@@ -18,7 +18,7 @@ module.exports = function(app) {
 		.post(users.requiresLogin, recipes.create);
 
 	app.route('/recipes/import')
-		.post(users.requiresLogin, recipes.create);
+		.post(users.requiresLogin, recipes.importRec);
 
 	// Finish by binding the Recipe middleware
 	app.param('recipeId', recipes.recipeByID);
