@@ -1,9 +1,12 @@
 <section class="row" data-ng-controller="AuthenticationController">
-    <div class="panel panel-primary top-space">
-        <div class="panel-heading">
-            <h3 class="panel-title text-center">Sign In with your Social Account</h3>
-        </div>
-        <div class="panel-body">
+
+    <md-card class="top-space slim-card">
+        <md-toolbar class="md-accent">
+            <div class="md-toolbar-tools">
+                <span class="md-flex">Sign In with your Social Account</span>
+            </div>
+        </md-toolbar>
+        <md-content class="md-padding">
             <div class="col-md-12 text-center">
                 <a href="/auth/facebook" class="undecorated-link">
                     <img src="/modules/users/img/buttons/facebook.png">
@@ -12,34 +15,29 @@
                     <img src="/modules/users/img/buttons/google.png">
                 </a>
             </div>
-        </div>
-    </div>
+        </md-content>
+    </md-card>
 
     <h1 class="text-center text-muted">OR</h1>
 
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h3 class="panel-title text-center">Sign In with your Account</h3>
-        </div>
-        <div class="panel-body">
+    <md-card class=" slim-card">
+        <md-toolbar class="md-accent">
+            <div class="md-toolbar-tools">
+                <span class="md-flex">Sign In with your Account</span>
+            </div>
+        </md-toolbar>
+        <md-content class="md-padding">
             <div class="col-xs-offset-2 col-xs-8 col-md-offset-5 col-md-2">
                 <form data-ng-submit="signin()" class="signin form-horizontal" autocomplete="off">
                     <fieldset>
-                        <div class="form-group">
-                            <label for="username">Username</label>
-                            <input type="text" id="username" name="username" class="form-control"
-                                   data-ng-model="credentials.username" placeholder="Username">
+                        <md-text-float label="Username" data-ng-model="credentials.username" id="username" name="username" class="form-group" > </md-text-float>
+                        <md-text-float label="Password" data-ng-model="credentials.password" id="password" name="password" type="password" class="form-group"> </md-text-float>
+                        <br>
+                        <div class="form-group" style="padding-left:50px;">
+                            <md-button class="md-raised md-primary btn-padding" type="submit">Sign In</md-button>
                         </div>
                         <div class="form-group">
-                            <label for="password">Password</label>
-                            <input type="password" id="password" name="password" class="form-control"
-                                   data-ng-model="credentials.password" placeholder="Password">
-                        </div>
-                        <div class="text-center form-group">
-                            <button type="submit" class="btn btn-primary">Sign in</button>
-                        </div>
-                        <div class="forgot-password">
-                            <a href="/#!/password/forgot">Forgot your password?</a>
+                            <md-button ng-href="/#!/password/forgot">Forgot your password?</md-button>
                         </div>
                         <div data-ng-show="error" class="text-center text-danger">
                             <strong data-ng-bind="error"></strong>
@@ -47,7 +45,6 @@
                     </fieldset>
                 </form>
             </div>
-        </div>
-    </div>
-
+        </md-content>
+    </md-card>
 </section>

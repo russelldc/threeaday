@@ -14,6 +14,12 @@ module.exports = function(app) {
 		.put(users.requiresLogin, recipes.hasAuthorization, recipes.update)
 		.delete(users.requiresLogin, recipes.hasAuthorization, recipes.delete);
 
+	app.route('/recipes/custom')
+		.post(users.requiresLogin, recipes.create);
+
+	app.route('/recipes/import')
+		.post(users.requiresLogin, recipes.create);
+
 	// Finish by binding the Recipe middleware
 	app.param('recipeId', recipes.recipeByID);
 };

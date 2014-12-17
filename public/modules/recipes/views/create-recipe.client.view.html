@@ -1,23 +1,63 @@
 <section data-ng-controller="RecipesController">
-    <div class="page-header">
-        <h1>New Recipe</h1>
-    </div>
-    <div class="col-md-12">
-        <form class="form-horizontal" data-ng-submit="create()" novalidate>
-            <fieldset>
-                <div class="form-group">
-                    <label class="control-label" for="name">Name</label>
-                    <div class="controls">
-                        <input type="text" data-ng-model="name" id="name" class="form-control" placeholder="Name" required>
+    <md-card class="slim-card" style="padding-top:7px;">
+        <md-tabs class="md-accent" selected="selectedIndex">
+            <md-tab id="tab1" aria-controls="tab1-content">
+                Import Recipe
+            </md-tab>
+            <md-tab id="tab2" aria-controls="tab2-content">
+                Custom Recipe
+            </md-tab>
+        </md-tabs>
+        <ng-switch on="selectedIndex" class="tabpanel-container">
+            <div role="tabpanel" class="tab1-content" aria-labelledby="tab1" ng-switch-when="0" md-swipe-left="next()" md-swipe-right="previous()">
+                <div class="container">
+                    <div class="row clearfix">
+                        <div class="col-md-7 column">
+                            <p>
+                               Paste the link of a recipe into the space below and hit import recipe. It will be added to your recipe collection.</p>
+                            <form data-ng-submit="importRecipe()" class="custom-recipe form-horizontal" autocomplete="off">
+                                <fieldset>
+                                    <md-text-float label="URL" data-ng-model="importRecipe.recipeUrl" id="recipeUrl" name="recipeUrl" class="form-group long" > </md-text-float>
+                                    <br>
+                                    <div class="form-group">
+                                        <md-button class="md-raised md-primary btn-padding" type="submit">Import Recipe</md-button>
+                                    </div>
+                                    <div data-ng-show="error" class="text-center text-danger">
+                                        <strong data-ng-bind="error"></strong>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+                        <div class="col-md-4 column">
+                            <md-toolbar class="md-accent">
+                                <div class="md-toolbar-tools">
+                                    <span class="md-flex">Supported Websites</span>
+                                </div>
+                            </md-toolbar>
+                            <md-content class="md-padding">
+                                <a href="http://allrecipes.com" target="_blank"><img alt="All Recipes" class="img-responsive recipe-logo" src="modules/core/img/brand/allrecipes_logo.png"/></a>
+                                <a href="http://foodnetwork.com/recipes" target="_blank"><img alt="Food Network" class="img-responsive recipe-logo" src="modules/core/img/brand/foodnetwork_logo.png"/></a>
+                                </md-content>
+
+                        </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <input type="submit" class="btn btn-default">
-                </div>
-				<div data-ng-show="error" class="text-danger">
-					<strong data-ng-bind="error"></strong>
-				</div>
-            </fieldset>
-        </form>
-    </div>
+            </div>
+            <div role="tabpanel" class="tab2-content" aria-labelledby="tab2" ng-switch-when="1" md-swipe-left="next()" md-swipe-right="previous()">
+                <form data-ng-submit="create()" class="custom-recipe form-horizontal" autocomplete="off">
+                    <fieldset>
+                        <md-text-float label="Name" data-ng-model="customRecipe.recipeName" id="recipeName" name="recipeName" class="form-group" > </md-text-float>
+                        <md-text-float label="Image" data-ng-model="customRecipe.recipeImage" id="recipeImage" name="recipeImage" class="form-group"> </md-text-float>
+                        <br>
+                        <div class="form-group" style="padding-left:50px;">
+                            <md-button class="md-raised md-primary btn-padding" type="submit">Create Recipe</md-button>
+                        </div>
+                        <div data-ng-show="error" class="text-center text-danger">
+                            <strong data-ng-bind="error"></strong>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </ng-switch>
+    </md-card>
 </section>

@@ -1,15 +1,16 @@
 'use strict';
 
 // Recipes controller
-angular.module('recipes').controller('RecipesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Recipes',
-	function($scope, $stateParams, $location, Authentication, Recipes) {
+angular.module('recipes').controller('RecipesController', ['$scope', '$http', '$stateParams', '$location', 'Authentication', 'Recipes',
+	function($scope, $http, $stateParams, $location, Authentication, Recipes) {
 		$scope.authentication = Authentication;
 
 		// Create new Recipe
 		$scope.create = function() {
 			// Create new Recipe object
 			var recipe = new Recipes ({
-				name: this.name
+				name: this.recipeName,
+				image: this.recipeImage
 			});
 
 			// Redirect after save
@@ -61,6 +62,24 @@ angular.module('recipes').controller('RecipesController', ['$scope', '$statePara
 			$scope.recipe = Recipes.get({ 
 				recipeId: $stateParams.recipeId
 			});
+		};
+
+		$scope.importRecipe = function() {
+			$http.post('/recipes/import', $scope.importRecipe).success(function(response) {
+				console.log("Imported recipe");
+				console.log(response);
+			}).error(function(response) {
+				$scope.error = response.message;
+			});
+		};
+
+		$scope.selectedIndex = 0;
+
+		$scope.next = function() {
+			$scope.data.selectedIndex = Math.min($scope.data.selectedIndex + 1, 2) ;
+		};
+		$scope.previous = function() {
+			$scope.data.selectedIndex = Math.max($scope.data.selectedIndex - 1, 0);
 		};
 	}
 ]);

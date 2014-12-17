@@ -16,6 +16,10 @@ var RecipeSchema = new Schema({
 		required: 'Please fill Recipe name',
 		trim: true
 	},
+	image: {
+		type: String,
+		default: ''
+	},
 	created: {
 		type: Date,
 		default: Date.now
