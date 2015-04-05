@@ -21,8 +21,4 @@ With a terminal in the directory of the repo, run sudo npm install && bower inst
 
 * app contains the server side logic including routes, DB models and controllers.
 * config contains authorization strategies and typical config files.
-* public contains all the client side logic, especially Angular stuff.
-
-### Thanks to
-
-[MEAN.JS](http://meanjs.org), used to quickly set up the stack.
+* public contains all the client side logic
