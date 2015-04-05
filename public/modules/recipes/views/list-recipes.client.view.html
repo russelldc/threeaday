@@ -5,19 +5,19 @@
 
     <md-input-container>
         <label>Search...</label>
-        <input ng-model="search.name" class="long">
+        <input ng-model="searchName" ng-change="updateFilter(searchName)" class="long">
     </md-input-container>
 
-    <div class="row">
-        <div class="col-sm-4" ng-repeat="recipe in recipes | filter : search">
-            <div class="panel panel-default list-card">
-                <div class="panel-body">
-                    <a data-ng-href="#!/recipes/{{recipe._id}}" ><img class="list-image " data-ng-src="{{recipe.image}}"></a>
-                </div>
-                <div class="panel-footer text-center">{{recipe.name}}</div>
-            </div>
-        </div>
+    <div deckgrid class="deckgrid" source="recipes">
+
+        <md-card>
+            <a data-ng-href="#!/recipes/{{card._id}}" ><img data-ng-src="{{card.image}}"></a>
+            <md-card-content class="panel-footer">
+                <div class="card-text">{{card.name}}</div>
+            </md-card-content>
+        </md-card>
     </div>
+
 
     <div class="alert alert-warning text-center" data-ng-hide="!recipes.$resolved || recipes.length">
         No Recipes yet, why don't you <a href="/#!/recipes/create">create one</a>?

@@ -17,6 +17,12 @@ exports.create = function(req, res) {
 	var recipe = new Recipe(req.body);
 	recipe.user = req.user;
 
+	// ingredients string to array
+	recipe.ingredients = recipe.ingredients[0].split('\n');
+
+	// directions string to array
+	recipe.directions = recipe.directions[0].split('\n');
+
 	recipe.save(function(err) {
 		if (err) {
 			return res.status(400).send({
@@ -87,13 +93,13 @@ exports.importRec = function(req, res) {
 					data = data.replace(/PT/ig, '').replace(/M/ig, ' minutes').replace(/H/ig, ' hours ');
 					importedRecipe.cookingTime = data;
 				});
-
+				importedRecipe.ingredients = [];
 				$('li[itemprop=ingredients]').each(function(i, element) {
-					importedRecipe.ingredients += $(this).text().trim().replace('  ', ' ') + '\n';
+					importedRecipe.ingredients.push($(this).text().trim().replace(/\s+/g,' '));
 				});
-
+				importedRecipe.directions = [];
 				$('div[itemprop=recipeInstructions] p').each(function(i, element) {
-					importedRecipe.directions += $(this).text().trim().replace('  ', ' ') + '\n\n';
+					importedRecipe.directions.push($(this).text().trim().replace(/\s+/g,' '));
 				});
 			}
 
@@ -116,12 +122,16 @@ exports.importRec = function(req, res) {
 					data = data.replace(/PT/ig, '').replace(/M/ig, ' minutes').replace(/H/ig, ' hours ');
 					importedRecipe.cookingTime = data;
 				});
-				$('span[class="plaincharacterwrap break"]').each(function(i, element) {
-					importedRecipe.directions += (i+1) + '. ' + $(this)[0].children[0].data + '\n\n';
-				});
+				importedRecipe.ingredients = [];
 				$('p[itemprop=ingredients]').each(function(i, element) {
+					importedRecipe.ingredients.push($(this).text().trim().replace(/\s+/g,' '));
+				});
+				importedRecipe.directions = [];
+				$('div[itemprop=recipeInstructions] > ol > li').each(function(i, element) {
 
-					importedRecipe.ingredients += $(this).text().trim().replace(/\s+/g,' ') + '\n';
+					console.log(i);
+					console.log($(this).text());
+					importedRecipe.directions.push((i+1) + '. ' + $(this).text());
 				});
 			}
 
@@ -188,7 +198,7 @@ exports.delete = function(req, res) {
  * List of Recipes
  */
 exports.list = function(req, res) { 
-	Recipe.find().sort('-created').populate('user', '_id').exec(function(err, recipes) {
+	Recipe.find({ user: req.user.id }).sort('-created').populate('user', '_id').exec(function(err, recipes) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)

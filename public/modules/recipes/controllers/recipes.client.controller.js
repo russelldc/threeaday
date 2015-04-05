@@ -17,7 +17,17 @@ angular.module('recipes').controller('RecipesController', ['$scope', '$http', '$
 				$scope.showProgress = false;
 				$scope.error = response.message;
 			});
+		};
 
+		$scope.filters =  {};
+
+		$scope.updateFilter = function(searchText) {
+			if (searchText === '') {
+				$scope.filters = {};
+			}
+			else {
+				$scope.filters = {name : searchText};
+			}
 		};
 
 		// Remove existing Recipe
@@ -41,6 +51,12 @@ angular.module('recipes').controller('RecipesController', ['$scope', '$http', '$
 		$scope.update = function() {
 			var recipe = $scope.recipe;
 
+			// ingredients string to array
+			recipe.ingredients = recipe.ingredientsList.split('\n');
+
+			// directions string to array
+			recipe.directions = recipe.directionsList.split('\n');
+
 			recipe.$update(function() {
 				$location.path('recipes/' + recipe._id);
 			}, function(errorResponse) {
@@ -55,9 +71,22 @@ angular.module('recipes').controller('RecipesController', ['$scope', '$http', '$
 
 		// Find existing Recipe
 		$scope.findOne = function() {
-			$scope.recipe = Recipes.get({ 
+			$scope.recipe = Recipes.get({
 				recipeId: $stateParams.recipeId
-			});
+			}).$promise.then(function(recipe) {
+					$scope.recipe = recipe;
+					$scope.recipe.ingredientsList = '';
+
+					$scope.recipe.ingredients.forEach(function(element, index) {
+						$scope.recipe.ingredientsList += element + '\n';
+					});
+
+					$scope.recipe.directionsList = '';
+
+					$scope.recipe.directions.forEach(function(element, index) {
+						$scope.recipe.directionsList += element + '\n';
+					});
+				});
 		};
 
 		$scope.showSimpleToast = function() {
@@ -84,7 +113,6 @@ angular.module('recipes').controller('RecipesController', ['$scope', '$http', '$
 		$scope.selectedIndex = 0;
 
 		$scope.next = function() {
-			console.log($scope.selectedIndex);
 			$scope.selectedIndex = 1;
 		};
 		$scope.previous = function() {

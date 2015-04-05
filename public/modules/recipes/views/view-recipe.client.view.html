@@ -1,6 +1,6 @@
 <section data-ng-controller="RecipesController" data-ng-init="findOne()">
     <div class="page-header">
-        <h1 data-ng-bind="recipe.name"></h1>
+        <h2 data-ng-bind="recipe.name"></h2>
     </div>
     <div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == recipe.user._id))">
         <a class="btn btn-primary" href="/#!/recipes/{{recipe._id}}/edit">
@@ -24,18 +24,23 @@
         <div class="col-sm-5">
             <div class="panel panel-primary list-card">
                 <div class="panel-heading">Ingredients</div>
-                <div class="panel-body">
-                    <div style="white-space: pre-wrap;" data-ng-bind="recipe.ingredients"></div>
-                </div>
+                <md-list class="panel-body">
+                    <md-item ng-repeat="ingredient in recipe.ingredients track by $index">
+                        <div class="md-item-text ingredient-item">{{ingredient}}</div>
+                        <md-divider ng-if="!$last" style="margin-top: 10px; margin-bottom: 10px;"></md-divider>
+                    </md-item>
+                </md-list>
             </div>
         </div>
 
         <div class="col-sm-7">
             <div class="panel panel-primary list-card">
                 <div class="panel-heading">Directions</div>
-                <div class="panel-body">
-                    <div style="white-space: pre-wrap;" data-ng-bind="recipe.directions"></div>
-                </div>
+                <md-list class="panel-body">
+                    <md-item ng-repeat="direction in recipe.directions track by $index">
+                        <div class="md-item-text direction-item">{{direction}}</div>
+                    </md-item>
+                </md-list>
             </div>
         </div>
     </div>

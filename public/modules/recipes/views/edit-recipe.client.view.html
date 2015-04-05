@@ -3,20 +3,43 @@
         <h1>Edit Recipe</h1>
     </div>
     <div class="col-md-12">
-        <form class="form-horizontal" data-ng-submit="update()" novalidate>
+        <form data-ng-submit="update()" class="custom-recipe form-horizontal" novalidate>
             <fieldset>
-                <div class="form-group">
-                    <label class="control-label" for="name">Name</label>
-                    <div class="controls">
-                        <input type="text" data-ng-model="recipe.name" id="name" class="form-control" placeholder="Name" required>
-                    </div>
+                <md-input-container>
+                    <label>Recipe Name</label>
+                    <input ng-model="recipe.name" >
+                </md-input-container>
+                <md-input-container>
+                    <label>Image</label>
+                    <input ng-model="recipe.image" >
+                </md-input-container>
+                <md-input-container>
+                    <label>Preparation Time</label>
+                    <input ng-model="recipe.preparationTime" >
+                </md-input-container>
+                <md-input-container>
+                    <label>Cook Time</label>
+                    <input ng-model="recipe.cookingTime" >
+                </md-input-container>
+                <md-input-container>
+                    <label>Ingredients</label>
+                    <textarea ng-model="recipe.ingredientsList" rows="3" class="scrollable-textarea"></textarea>
+                </md-input-container>
+                <md-input-container>
+                    <label>Directions</label>
+                    <textarea ng-model="recipe.directionsList" rows="3" class="scrollable-textarea"></textarea>
+                </md-input-container>
+
+                <br>
+
+                <md-button class="md-raised md-primary btn-padding" type="submit">Update Recipe</md-button>
+
+                <div layout="row" layout-sm="column" layout-align="space-around">
+                    <md-progress-circular ng-show="showProgress" mode="indeterminate"></md-progress-circular>
                 </div>
-                <div class="form-group">
-                    <input type="submit" value="Update" class="btn btn-default">
+                <div data-ng-show="error" class="text-center text-danger">
+                    <strong data-ng-bind="error"></strong>
                 </div>
-				<div data-ng-show="error" class="text-danger">
-					<strong data-ng-bind="error"></strong>
-				</div>
             </fieldset>
         </form>
     </div>

@@ -21,11 +21,11 @@ var RecipeSchema = new Schema({
 		default: ''
 	},
 	ingredients: {
-		type: String,
+		type: [String],
 		default: ''
 	},
 	directions: {
-		type: String,
+		type: [String],
 		default: ''
 	},
 	preparationTime: {
