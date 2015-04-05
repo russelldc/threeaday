@@ -4,7 +4,6 @@
 angular.module('recipes').controller('RecipesController', ['$scope', '$http', '$stateParams', '$location', 'Authentication', 'Recipes', '$mdToast',
 	function($scope, $http, $stateParams, $location, Authentication, Recipes, $mdToast) {
 		$scope.authentication = Authentication;
-
 		// Create new Recipe
 		$scope.create = function() {
 			$scope.showProgress = true;
@@ -85,10 +84,11 @@ angular.module('recipes').controller('RecipesController', ['$scope', '$http', '$
 		$scope.selectedIndex = 0;
 
 		$scope.next = function() {
-			$scope.data.selectedIndex = Math.min($scope.data.selectedIndex + 1, 2) ;
+			console.log($scope.selectedIndex);
+			$scope.selectedIndex = 1;
 		};
 		$scope.previous = function() {
-			$scope.data.selectedIndex = Math.max($scope.data.selectedIndex - 1, 0);
+			$scope.selectedIndex = 0;
 		};
 	}
 ]);

@@ -1,0 +1,21 @@
+.md-tabs-content {
+    height: 750px;
+    overflow-y: auto;
+}
+
+.tab1-container {
+    padding-top: 20px;
+}
+
+.tab2-container{
+    padding-bottom: 20px;
+}
+
+.custom-recipe {
+    padding-bottom: 30px;
+}
+
+.supported-sites {
+    background-color: rgb(249, 249, 249) !important;
+    text-align: center;
+}

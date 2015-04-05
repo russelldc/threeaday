@@ -1,83 +1,100 @@
 <section data-ng-controller="RecipesController">
     <md-card class="slim-card" style="padding-top:7px;">
-        <md-tabs class="md-accent" selected="selectedIndex">
+        <md-tabs  md-selected="selectedIndex">
             <md-tab id="tab1" aria-controls="tab1-content">
-                Import Recipe
-            </md-tab>
-            <md-tab id="tab2" aria-controls="tab2-content">
-                Custom Recipe
-            </md-tab>
-        </md-tabs>
-        <ng-switch on="selectedIndex" class="tabpanel-container">
-            <div role="tabpanel" class="tab1-content" aria-labelledby="tab1" ng-switch-when="0" md-swipe-left="next()" md-swipe-right="previous()">
-                <div class="container">
-                    <div class="row clearfix">
-                        <div class="col-md-7 column">
-                            <div class="alert alert-warning text-center">
-                                Paste the link of a recipe into the space below and hit "Import Recipe". It will be added to your recipe collection.
-                            </div>
-                            <form data-ng-submit="importRec()" class="custom-recipe form-horizontal" autocomplete="off">
-                                <fieldset>
-                                    <md-text-float label="URL" data-ng-model="importRecipe.recipeUrl" id="recipeUrl" name="recipeUrl" class="form-group long" > </md-text-float>
-                                    <br>
-                                    <div class="form-group">
-                                        <md-button class="md-raised md-primary btn-padding" type="submit">Import Recipe</md-button>
-                                    </div>
-                                    <div layout="row" layout-sm="column" layout-align="space-around">
-                                        <md-progress-circular ng-show="showProgress" mode="indeterminate"></md-progress-circular>
-                                    </div>
-                                    <div class="alert alert-danger text-center" data-ng-show="error">
-                                            <span data-ng-bind="error"></span>
-                                    </div>
+                <md-tab-label>Import Recipe</md-tab-label>
+                <md-tab-content>
+                    <div class="container tab1-container">
+                        <div class="row clearfix">
+                            <div class="col-md-8 column">
+                                <!--<div class="alert alert-warning text-center">-->
+                                    <!--Paste the link of a recipe into the space below and hit "Import Recipe". It will be added to your recipe collection.-->
+                                <!--</div>-->
+                                <form data-ng-submit="importRec()" class="custom-recipe form-horizontal" autocomplete="off">
+                                    <fieldset>
+                                        <md-input-container>
+                                            <label>Recipe URL</label>
+                                            <input ng-model="importRecipe.recipeUrl" class="long">
+                                        </md-input-container>
+                                        <br>
 
-                                </fieldset>
-                            </form>
-                        </div>
-                        <div class="col-md-4 column">
-                            <md-toolbar class="md-accent">
-                                <div class="md-toolbar-tools">
-                                    <span class="md-flex">Supported Websites</span>
-                                </div>
-                            </md-toolbar>
-                            <md-content class="md-padding">
-                                <a href="http://allrecipes.com" target="_blank"><img alt="All Recipes" class="img-responsive recipe-logo" src="modules/core/img/brand/allrecipes_logo.png"/></a>
-                                <a href="http://foodnetwork.com/recipes" target="_blank"><img alt="Food Network" class="img-responsive recipe-logo" src="modules/core/img/brand/foodnetwork_logo.png"/></a>
+                                        <md-button class="md-raised md-primary btn-padding" type="submit">Import Recipe</md-button>
+
+                                        <div layout="row" layout-sm="column" layout-align="space-around">
+                                            <md-progress-circular ng-show="showProgress" mode="indeterminate"></md-progress-circular>
+                                        </div>
+                                        <div class="alert alert-danger text-center" data-ng-show="error">
+                                            <span data-ng-bind="error"></span>
+                                        </div>
+
+                                    </fieldset>
+                                </form>
+                            </div>
+                            <div class="col-md-4 column">
+                                <md-toolbar class="">
+                                    <div class="md-toolbar-tools" style="text-align:center;">
+                                        <span class="md-flex">Supported Websites</span>
+                                    </div>
+                                </md-toolbar>
+                                <md-content class="md-padding supported-sites">
+                                    <a href="http://allrecipes.com" target="_blank"><img alt="All Recipes" class=" recipe-logo" src="modules/core/img/brand/allrecipes_logo.png"/></a>
+                                    <a href="http://foodnetwork.com/recipes" target="_blank"><img alt="Food Network" class=" recipe-logo" src="modules/core/img/brand/foodnetwork_logo.png"/></a>
                                 </md-content>
 
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div role="tabpanel" class="tab2-content" aria-labelledby="tab2" ng-switch-when="1" md-swipe-left="next()" md-swipe-right="previous()">
-                <div class="col-md-12 column">
-                <form data-ng-submit="create()" class="custom-recipe form-horizontal" autocomplete="off">
-                    <fieldset>
-                        <md-text-float label="Name" data-ng-model="customRecipe.name" id="recipeName" name="recipeName" class="form-group" > </md-text-float>
-                        <md-text-float label="Image" data-ng-model="customRecipe.image" id="recipeImage" name="recipeImage" class="form-group"> </md-text-float>
-                        <md-text-float label="Preparation Time" data-ng-model="customRecipe.preparationTime"  class="form-group"> </md-text-float>
-                        <md-text-float label="Cook Time" data-ng-model="customRecipe.cookingTime"  class="form-group"> </md-text-float>
+                </md-tab-content>
+            </md-tab>
+            <md-tab id="tab2" aria-controls="tab2-content">
+                <md-tab-label>Custom Recipe</md-tab-label>
+                <md-tab-content>
+                    <div class="col-md-12 column tab2-container">
+                        <form data-ng-submit="create()" class="custom-recipe form-horizontal" autocomplete="off">
+                            <fieldset>
+                                <md-input-container>
+                                    <label>Recipe Name</label>
+                                    <input ng-model="customRecipe.name" >
+                                </md-input-container>
+                                <md-input-container>
+                                    <label>Image</label>
+                                    <input ng-model="customRecipe.image" >
+                                </md-input-container>
+                                <md-input-container>
+                                    <label>Preparation Time</label>
+                                    <input ng-model="customRecipe.preparationTime" >
+                                </md-input-container>
+                                <md-input-container>
+                                    <label>Cook Time</label>
+                                    <input ng-model="customRecipe.cookingTime" >
+                                </md-input-container>
 
-                        <label for="textAreaIngredients" class="form-group text-muted control-label">Ingredients</label>
-                        <textarea class="form-control form-group" data-ng-model="customRecipe.ingredients" rows="3" id="textAreaIngredients"></textarea>
+                                <md-input-container>
+                                    <label>Ingredients</label>
+                                    <textarea ng-model="customRecipe.ingredients" rows="3" class="scrollable-textarea"></textarea>
+                                </md-input-container>
+                                <md-input-container>
+                                    <label>Directions</label>
+                                    <textarea ng-model="customRecipe.directions" rows="3" class="scrollable-textarea"></textarea>
+                                </md-input-container>
 
-                        <label for="textAreaDirections" class="form-group text-muted control-label">Directions</label>
-                        <textarea class="form-control form-group" data-ng-model="customRecipe.directions" rows="3" id="textAreaDirections"></textarea>
+                                <br>
 
-                        <!--<md-text-float label="Directions" data-ng-model="customRecipe.directions"  class="form-group"> </md-text-float>-->
-                        <br>
-                        <div class="form-group">
-                            <md-button class="md-raised md-primary btn-padding" type="submit">Create Recipe</md-button>
-                        </div>
-                        <div layout="row" layout-sm="column" layout-align="space-around">
-                            <md-progress-circular ng-show="showProgress" mode="indeterminate"></md-progress-circular>
-                        </div>
-                        <div data-ng-show="error" class="text-center text-danger">
-                            <strong data-ng-bind="error"></strong>
-                        </div>
-                    </fieldset>
-                </form>
-                </div>
-                </div>
-        </ng-switch>
+                                <md-button class="md-raised md-primary btn-padding" type="submit">Create Recipe</md-button>
+
+                                <div layout="row" layout-sm="column" layout-align="space-around">
+                                    <md-progress-circular ng-show="showProgress" mode="indeterminate"></md-progress-circular>
+                                </div>
+                                <div data-ng-show="error" class="text-center text-danger">
+                                    <strong data-ng-bind="error"></strong>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </md-tab-content>
+            </md-tab>
+        </md-tabs>
+
     </md-card>
+
 </section>

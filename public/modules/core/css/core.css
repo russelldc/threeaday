@@ -36,7 +36,7 @@
 }
 
 .jumbotron {
-	padding-bottom: 120px;
+	padding-bottom: 120px !important;
 }
 
 .steps .step {

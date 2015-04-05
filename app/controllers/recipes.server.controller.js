@@ -46,6 +46,11 @@ exports.importRec = function(req, res) {
 		return url[1];
 	}
 
+	function html2text(text) {
+
+		return text.replace(/<[^>]*>/g, '');
+	}
+
 	if (cleanUp(url) === 'www.foodnetwork.com' || cleanUp(url) === 'foodnetwork.com')
 		scrapeMode = 'foodnetwork';
 	else if (cleanUp(url) === 'allrecipes.com' || cleanUp(url) === 'www.allrecipes.com')
@@ -84,17 +89,11 @@ exports.importRec = function(req, res) {
 				});
 
 				$('li[itemprop=ingredients]').each(function(i, element) {
-					importedRecipe.ingredients += $(this)[0].children[0].data.trim();
-
-					if ($(this)[0].children[0].next !== null && $(this)[0].children[0].next.children[0].data != 'NaN') {
-						importedRecipe.ingredients += +$(this)[0].children[0].next.children[0].data;
-					}
-
-					importedRecipe.ingredients += "\n";
+					importedRecipe.ingredients += $(this).text().trim().replace('  ', ' ') + '\n';
 				});
 
 				$('div[itemprop=recipeInstructions] p').each(function(i, element) {
-					importedRecipe.directions += (i+1) + ". " + $(this)[0].children[0].data.trim() + '\n';
+					importedRecipe.directions += $(this).text().trim().replace('  ', ' ') + '\n\n';
 				});
 			}
 
@@ -118,17 +117,11 @@ exports.importRec = function(req, res) {
 					importedRecipe.cookingTime = data;
 				});
 				$('span[class="plaincharacterwrap break"]').each(function(i, element) {
-					importedRecipe.directions += (i+1) + ". " + $(this)[0].children[0].data + '\n';
+					importedRecipe.directions += (i+1) + '. ' + $(this)[0].children[0].data + '\n\n';
 				});
 				$('p[itemprop=ingredients]').each(function(i, element) {
-					var str =  $(this)[0].children[1].children[0].data;
-					var str2 = $(this)[0].children[3].children[0].data;
-					try {
-						importedRecipe.ingredients += str + " " + str2 + '\n';
-					} catch(e) {
-					}
 
-
+					importedRecipe.ingredients += $(this).text().trim().replace(/\s+/g,' ') + '\n';
 				});
 			}
 
