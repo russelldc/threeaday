@@ -1,19 +1,122 @@
 <section data-ng-controller="MealplansController" data-ng-init="find()">
-    <div class="page-header">
-        <h1>Mealplans</h1>
+    <div class="left-recipes col-sm-3">
+        <section class="md-whiteframe-z1">
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <h2 class="md-flex" style="color: white;">Recipes</h2>
+                </div>
+            </md-toolbar>
+
+            <div class="recipe-bar-content">
+                <md-input-container>
+                    <label>Search...</label>
+                    <input ng-model="search.name">
+                </md-input-container>
+
+
+                <div ng-repeat="recipe in filteredRecipes = recipes | filter:search | startFrom:(currentPage-1)*entryLimit | limitTo:entryLimit" class="panel panel-default"  ng-model="recipes" data-drop="true" data-drag="true" data-jqyoui-options="{revert: 'invalid', helper: 'clone'}" jqyoui-draggable="{index: {{$index}}, placeholder: 'keep'}">
+                    <div class="panel-body">
+                        <img  data-ng-src="{{recipe.image}}" class="face md-avatar" />
+                        <p>{{ recipe.name }}</p>
+                    </div>
+                </div>
+                <pagination direction-links="false" total-items="totalItems" ng-model="currentPage" num-pages="noOfPages" items-per-page="entryLimit" ></pagination>
+            </div>
+
+        </section>
     </div>
-    <div class="list-group">
-        <a data-ng-repeat="mealplan in mealplans" data-ng-href="#!/mealplans/{{mealplan._id}}" class="list-group-item">
-			<small class="list-group-item-text">
-				Posted on
-				<span data-ng-bind="mealplan.created | date:'medium'"></span>
-				by
-				<span data-ng-bind="mealplan.user.displayName"></span>
-			</small>
-			<h4 class="list-group-item-heading" data-ng-bind="mealplan.name"></h4>
-        </a>
+
+    <div class="right-mealplan top-space col-sm-9">
+
+        <div class="row">
+            <div class="meal-row-title col-sm-1"><p>Breakfast</p></div>
+
+
+
+            <div class="meal-grid-item" data-drop="true" ng-model='recipes2' jqyoui-droppable="{multiple:true}">
+
+                <div  ng-repeat="recipe in recipes2 track by $index" ng-show="recipe.name" data-drag="true" data-jqyoui-options="{revert: 'invalid', helper: 'clone'}" ng-model="recipes2" jqyoui-draggable="{index: {{$index}}}">
+                    {{ recipe.name }}
+                </div></div>
+            <div class="meal-grid-item"> </div>
+            <div class="meal-grid-item"> </div>
+            <div class="meal-grid-item"> </div>
+            <div class="meal-grid-item"> </div>
+        </div>
+        <div class="row">
+            <div class="meal-row-title col-sm-1"><p>Lunch</p></div>
+            <div class="meal-grid-item"> </div>
+            <div class="meal-grid-item"> </div>
+            <div class="meal-grid-item"> </div>
+            <div class="meal-grid-item"> </div>
+            <div class="meal-grid-item"> </div>
+        </div>
+        <div class="row">
+            <div class="meal-row-title col-sm-1"><p>Dinner</p></div>
+            <div class="meal-grid-item"> </div>
+            <div class="meal-grid-item"> </div>
+            <div class="meal-grid-item"> </div>
+            <div class="meal-grid-item"> </div>
+            <div class="meal-grid-item"> </div>
+        </div>
+        <!--<table class=" table table-bordered">-->
+            <!--<tr>-->
+                <!--<th></th>-->
+                <!--<th>M</th>-->
+                <!--<th>T</th>-->
+                <!--<th>W</th>-->
+                <!--<th>Th</th>-->
+                <!--<th>F</th>-->
+                <!--<th>S</th>-->
+                <!--<th>Su</th>-->
+            <!--</tr>-->
+            <!--<tr>-->
+                <!--<td>Morning</td>-->
+                <!--<td data-drop="true" ng-model='recipes2' jqyoui-droppable="{multiple:true}">-->
+                    <!--<div  ng-repeat="recipe in recipes2 track by $index" ng-show="recipe.name" data-drag="true" data-jqyoui-options="{revert: 'invalid', helper: 'clone'}" ng-model="recipes2" jqyoui-draggable="{index: {{$index}}}">-->
+
+                            <!--&lt;!&ndash;<img  data-ng-src="{{recipe.image}}" class="face md-avatar" />&ndash;&gt;-->
+                            <!--{{ recipe.name }}-->
+                    <!--</div>-->
+                <!--</td>-->
+                <!--<td></td>-->
+                <!--<td></td>-->
+                <!--<td></td>-->
+                <!--<td></td>-->
+                <!--<td></td>-->
+                <!--<td></td>-->
+            <!--</tr>-->
+            <!--<tr>-->
+                <!--<td>Noon</td>-->
+                <!--<td></td>-->
+                <!--<td></td>-->
+                <!--<td></td>-->
+                <!--<td></td>-->
+                <!--<td></td>-->
+                <!--<td></td>-->
+                <!--<td></td>-->
+            <!--</tr>-->
+            <!--<tr>-->
+                <!--<td>Evening</td>-->
+                <!--<td></td>-->
+                <!--<td></td>-->
+                <!--<td></td>-->
+                <!--<td></td>-->
+                <!--<td></td>-->
+                <!--<td></td>-->
+                <!--<td></td>-->
+            <!--</tr>-->
+        <!--</table>-->
+
+        <!--<div data-drop="true" ng-model='recipes2' jqyoui-droppable="{multiple:true}">-->
+            <!--<div class="panel panel-default" ng-repeat="recipe in recipes2 track by $index" ng-show="recipe.name" data-drag="true" data-jqyoui-options="{revert: 'invalid', helper: 'clone'}" ng-model="recipes2" jqyoui-draggable="{index: {{$index}},animate:true}">-->
+                <!--<div class="panel-body">-->
+                    <!--<img  data-ng-src="{{recipe.image}}" class="face md-avatar" />-->
+                    <!--<p>{{ recipe.name }}</p>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<p class="placeholder" ng-hide="hideMe()">Add your items here</p>-->
+        <!--</div>-->
     </div>
-    <div class="alert alert-warning text-center" data-ng-hide="!mealplans.$resolved || mealplans.length">
-    	No Mealplans yet, why don't you <a href="/#!/mealplans/create">create one</a>?
-    </div>
+
 </section>

@@ -17,6 +17,8 @@ module.exports = {
 				'public/lib/angular-material/angular-material.css'
 			],
 			js: [
+				'public/lib/jquery/dist/jquery.min.js',
+				'public/lib/jquery-ui/jquery-ui.min.js',
 				'public/lib/angular/angular.js',
 				'public/lib/angular-resource/angular-resource.js', 
 				'public/lib/angular-cookies/angular-cookies.js', 
@@ -29,7 +31,10 @@ module.exports = {
 				'public/lib/angular-ui-router/release/angular-ui-router.js',
 				'public/lib/angular-ui-utils/ui-utils.js',
 				'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
-				'public/lib/angular-deckgrid/angular-deckgrid.js'
+				'public/lib/angular-deckgrid/angular-deckgrid.js',
+				'public/js/modernizr.custom.js',
+				'public/js/draggabilly.pkgd.min.js',
+				'public/js/dragdrop.js'
 			]
 		},
 		css: [
@@ -39,7 +44,8 @@ module.exports = {
 			'public/config.js',
 			'public/application.js',
 			'public/modules/*/*.js',
-			'public/modules/*/*[!tests]*/*.js'
+			'public/modules/*/*[!tests]*/*.js',
+			'public/js/*.js'
 		],
 		tests: [
 			'public/lib/angular-mocks/angular-mocks.js',

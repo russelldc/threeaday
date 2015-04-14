@@ -8,26 +8,15 @@ angular.module('recipes').controller('RecipesController', ['$scope', '$http', '$
 		$scope.create = function() {
 			$scope.showProgress = true;
 			var self = this;
-			$http.post('/recipes/custom', this.customRecipe).success(function(response) {
+			$http.post('/recipes/custom', this.customRecipe).success(function (response) {
 				$scope.showProgress = false;
 				console.log(response);
 				self.customRecipe = '';
 				$scope.showSimpleToast();
-			}).error(function(response) {
+			}).error(function (response) {
 				$scope.showProgress = false;
 				$scope.error = response.message;
 			});
-		};
-
-		$scope.filters =  {};
-
-		$scope.updateFilter = function(searchText) {
-			if (searchText === '') {
-				$scope.filters = {};
-			}
-			else {
-				$scope.filters = {name : searchText};
-			}
 		};
 
 		// Remove existing Recipe
@@ -117,6 +106,13 @@ angular.module('recipes').controller('RecipesController', ['$scope', '$http', '$
 		};
 		$scope.previous = function() {
 			$scope.selectedIndex = 0;
+		};
+
+		$scope.onDragComplete=function(data,evt){
+			console.log('drag success, data:', data);
+		};
+		$scope.onDropComplete=function(data,evt){
+			console.log('drop success, data:', data);
 		};
 	}
 ]);

@@ -64,6 +64,8 @@ module.exports.getJavaScriptAssets = function(includeTests) {
 		output = _.union(output, this.getGlobbedFiles(this.assets.tests));
 	}
 
+
+	output.push('lib/angular-dragdrop/src/angular-dragdrop.js');
 	return output;
 };
 
