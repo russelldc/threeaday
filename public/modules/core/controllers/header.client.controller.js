@@ -14,5 +14,21 @@ angular.module('core').controller('HeaderController', ['$scope', 'Authentication
 		$scope.$on('$stateChangeSuccess', function() {
 			$scope.isCollapsed = false;
 		});
+
+		$scope.getMenuIcon = function(title) {
+			var className = '';
+			switch(title) {
+				case 'New Recipe':
+					className = 'fa fa-pencil fa-fw';
+					break;
+				case 'Recipe List':
+					className = 'fa fa-list fa-fw';
+					break;
+				default:
+					break;
+			}
+
+			return className;
+		};
 	}
 ]);

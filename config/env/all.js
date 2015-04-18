@@ -31,10 +31,7 @@ module.exports = {
 				'public/lib/angular-ui-router/release/angular-ui-router.js',
 				'public/lib/angular-ui-utils/ui-utils.js',
 				'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
-				'public/lib/angular-deckgrid/angular-deckgrid.js',
-				'public/js/modernizr.custom.js',
-				'public/js/draggabilly.pkgd.min.js',
-				'public/js/dragdrop.js'
+				'public/lib/angular-deckgrid/angular-deckgrid.js'
 			]
 		},
 		css: [

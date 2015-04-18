@@ -34,6 +34,23 @@ md-whiteframe {
     margin: 16px;
 }
 
+.meal-list-face {
+    float: left;
+    margin: 5px 10px 5px 10px;
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
+    border: 1px solid #ddd;
+}
+
+.meal-list-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 0;
+    margin-top: 8px;
+}
+
 .recipe-bar-content {
     padding: 15px;
 }
@@ -45,7 +62,11 @@ md-whiteframe {
     width: 15%;
     height: 10em;
     border-radius: 4px;
-    background: rgba(0,0,0,0.1)
+    background: rgba(33, 150, 243,0.1);
+    overflow: auto;
+    white-space: nowrap;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
 }
 
 .meal-row-title > p {
@@ -64,4 +85,33 @@ md-whiteframe {
 .modify-full-width {
     width: 100% !important;
     margin: 0 0 0 0 !important;
+}
+
+.recipe-bar-content > div > .panel-body {
+    width: 225px;
+}
+
+.add-meal-icon {
+    font-size: 40px;
+    opacity: 0.5;
+    position:relative;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%)
+}
+
+.meal-card {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
+.meal-card > md-card-content > .card-text {
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    font-size: 10px;
+}
+
+.meal-hover {
+    background: rgba(33, 150, 243,0.3);
 }

@@ -99,20 +99,16 @@ angular.module('recipes').controller('RecipesController', ['$scope', '$http', '$
 			});
 		};
 
-		$scope.selectedIndex = 0;
+		$scope.filters =  {};
 
-		$scope.next = function() {
-			$scope.selectedIndex = 1;
-		};
-		$scope.previous = function() {
-			$scope.selectedIndex = 0;
+		$scope.updateFilter = function(searchText) {
+			if (searchText === '') {
+				$scope.filters = {};
+			}
+			else {
+				$scope.filters = {name : searchText};
+			}
 		};
 
-		$scope.onDragComplete=function(data,evt){
-			console.log('drag success, data:', data);
-		};
-		$scope.onDropComplete=function(data,evt){
-			console.log('drop success, data:', data);
-		};
 	}
 ]);

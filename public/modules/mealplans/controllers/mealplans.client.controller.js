@@ -1,14 +1,4 @@
 'use strict';
-angular.module('mealplans').filter('startFrom', function () {
-	return function (input, start) {
-		if (input) {
-			start = +start;
-			return input.slice(start);
-		}
-		return [];
-	};
-});
-
 // Mealplans controller
 angular.module('mealplans').controller('MealplansController', ['$scope', '$stateParams', '$location', '$mdSidenav', 'filterFilter', 'Authentication', 'Mealplans', 'Recipes',
 	function($scope, $stateParams, $location, $mdSidenav, filterFilter, Authentication, Mealplans, Recipes) {
@@ -84,19 +74,28 @@ angular.module('mealplans').controller('MealplansController', ['$scope', '$state
 			});
 		};
 
-		$scope.recipes2 = [];
+		$scope.gridNames = [{name: 'breakOne'}, {name: 'breakTwo'}, {name: 'breakThree'}, {name: 'breakFour'}, {name: 'breakFive'},
+			{name: 'lunchOne'}, {name: 'lunchTwo'}, {name: 'lunchThree'}, {name: 'lunchFour'}, {name: 'lunchFive'},
+			{name: 'dinnerOne'}, {name: 'dinnerTwo'}, {name: 'dinnerThree'}, {name: 'dinnerFour'}, {name: 'dinnerFive'}];
 
-		$scope.hideMe = function() {
-			return $scope.recipes2.length > 0;
-		};
+		for (var i = 0; i < $scope.gridNames.length; i++) {
+			var gridName = $scope.gridNames[i].name;
+			$scope[gridName] = [];
 
+			var optionsName = 'options' + gridName;
+			$scope[optionsName] = {
+				accept: function(dragEl) {
+					return ($scope[gridName].length === 0);
+				}
+			};
+		}
 
 		$scope.search = {};
 
 		// pagination controls
 		$scope.currentPage = 1;
 		$scope.totalItems = 0;
-		$scope.entryLimit = 4; // items per page
+		$scope.entryLimit = 6; // items per page
 		$scope.noOfPages = 0;
 
 		$scope.recipes.$promise.then(function() {
@@ -112,5 +111,25 @@ angular.module('mealplans').controller('MealplansController', ['$scope', '$state
 			$scope.currentPage = 1;
 		}, true);
 
+		$scope.emptyBox = function(plan) {
+			return plan.length === 0;
+		};
+
+		$scope.onOver = function(e) {
+			angular.element(e.target).addClass('meal-hover');
+		};
+		$scope.onOut = function(e) {
+			angular.element(e.target).removeClass('meal-hover');
+		};
 	}
 ]);
+
+angular.module('mealplans').filter('startFrom', function () {
+	return function (input, start) {
+		if (input) {
+			start = +start;
+			return input.slice(start);
+		}
+		return [];
+	};
+});

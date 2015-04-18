@@ -1,5 +1,5 @@
 .content {
-	margin-top: 50px;
+	padding-top: 50px;
 }
 .undecorated-link:hover {
 	text-decoration: none;
@@ -139,4 +139,8 @@ md-input-group.long > input {
 
 .view-recipe-img {
 	padding-left: 15px;
+}
+
+.menu-icon {
+	padding-right: 25px;
 }

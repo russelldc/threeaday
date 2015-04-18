@@ -13,32 +13,41 @@
                     <input ng-model="search.name">
                 </md-input-container>
 
-
-                <div ng-repeat="recipe in filteredRecipes = recipes | filter:search | startFrom:(currentPage-1)*entryLimit | limitTo:entryLimit" class="panel panel-default"  ng-model="recipes" data-drop="true" data-drag="true" data-jqyoui-options="{revert: 'invalid', helper: 'clone'}" jqyoui-draggable="{index: {{$index}}, placeholder: 'keep'}">
+                <div ng-repeat="recipe in filteredRecipes = recipes | filter:search | startFrom:(currentPage-1)*entryLimit | limitTo:entryLimit" class="panel panel-default"  ng-model="filteredRecipes" data-drag="true" data-jqyoui-options="{revert: 'invalid', helper: 'clone'}" jqyoui-draggable="{index: {{$index}}, placeholder: 'keep'}">
                     <div class="panel-body">
-                        <img  data-ng-src="{{recipe.image}}" class="face md-avatar" />
-                        <p>{{ recipe.name }}</p>
+                        <img  data-ng-src="{{recipe.image}}" class="meal-list-face" />
+                        <p class="meal-list-text">{{ recipe.name }}</p>
                     </div>
                 </div>
                 <pagination direction-links="false" total-items="totalItems" ng-model="currentPage" num-pages="noOfPages" items-per-page="entryLimit" ></pagination>
             </div>
-
         </section>
     </div>
 
     <div class="right-mealplan top-space col-sm-9">
-
         <div class="row">
             <div class="meal-row-title col-sm-1"><p>Breakfast</p></div>
 
+            <div class="meal-grid-item" ng-model='breakOne' data-drop="true" jqyoui-droppable="{onOver: 'onOver', onOut: 'onOut', onDrop: 'onOut'}" data-jqyoui-options="optionsbreakOne">
+                <i class="fa fa-plus fa-3 add-meal-icon" ng-show="emptyBox(breakOne)"></i>
+                <md-card class="meal-card" ng-repeat="meal in breakOne track by $index">
+                    <a data-ng-href="#!/recipes/{{meal._id}}" ><img data-ng-src="{{meal.image}}"></a>
+                    <md-card-content class="panel-footer">
+                        <div class="card-text">{{ meal.name }}</div>
+                    </md-card-content>
+                </md-card>
+            </div>
 
+            <div class="meal-grid-item" ng-model='breakTwo' data-drop="true" jqyoui-droppable="{onOver: 'onOver', onOut: 'onOut', onDrop: 'onOut'}" data-jqyoui-options="optionsbreakTwo">
+                <i class="fa fa-plus fa-3 add-meal-icon" ng-show="emptyBox(breakTwo)"></i>
+                <md-card class="meal-card" ng-repeat="meal in breakTwo track by $index">
+                    <a data-ng-href="#!/recipes/{{meal._id}}" ><img data-ng-src="{{meal.image}}"></a>
+                    <md-card-content class="panel-footer">
+                        <div class="card-text">{{ meal.name }}</div>
+                    </md-card-content>
+                </md-card>
+            </div>
 
-            <div class="meal-grid-item" data-drop="true" ng-model='recipes2' jqyoui-droppable="{multiple:true}">
-
-                <div  ng-repeat="recipe in recipes2 track by $index" ng-show="recipe.name" data-drag="true" data-jqyoui-options="{revert: 'invalid', helper: 'clone'}" ng-model="recipes2" jqyoui-draggable="{index: {{$index}}}">
-                    {{ recipe.name }}
-                </div></div>
-            <div class="meal-grid-item"> </div>
             <div class="meal-grid-item"> </div>
             <div class="meal-grid-item"> </div>
             <div class="meal-grid-item"> </div>
@@ -59,64 +68,6 @@
             <div class="meal-grid-item"> </div>
             <div class="meal-grid-item"> </div>
         </div>
-        <!--<table class=" table table-bordered">-->
-            <!--<tr>-->
-                <!--<th></th>-->
-                <!--<th>M</th>-->
-                <!--<th>T</th>-->
-                <!--<th>W</th>-->
-                <!--<th>Th</th>-->
-                <!--<th>F</th>-->
-                <!--<th>S</th>-->
-                <!--<th>Su</th>-->
-            <!--</tr>-->
-            <!--<tr>-->
-                <!--<td>Morning</td>-->
-                <!--<td data-drop="true" ng-model='recipes2' jqyoui-droppable="{multiple:true}">-->
-                    <!--<div  ng-repeat="recipe in recipes2 track by $index" ng-show="recipe.name" data-drag="true" data-jqyoui-options="{revert: 'invalid', helper: 'clone'}" ng-model="recipes2" jqyoui-draggable="{index: {{$index}}}">-->
-
-                            <!--&lt;!&ndash;<img  data-ng-src="{{recipe.image}}" class="face md-avatar" />&ndash;&gt;-->
-                            <!--{{ recipe.name }}-->
-                    <!--</div>-->
-                <!--</td>-->
-                <!--<td></td>-->
-                <!--<td></td>-->
-                <!--<td></td>-->
-                <!--<td></td>-->
-                <!--<td></td>-->
-                <!--<td></td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-                <!--<td>Noon</td>-->
-                <!--<td></td>-->
-                <!--<td></td>-->
-                <!--<td></td>-->
-                <!--<td></td>-->
-                <!--<td></td>-->
-                <!--<td></td>-->
-                <!--<td></td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-                <!--<td>Evening</td>-->
-                <!--<td></td>-->
-                <!--<td></td>-->
-                <!--<td></td>-->
-                <!--<td></td>-->
-                <!--<td></td>-->
-                <!--<td></td>-->
-                <!--<td></td>-->
-            <!--</tr>-->
-        <!--</table>-->
-
-        <!--<div data-drop="true" ng-model='recipes2' jqyoui-droppable="{multiple:true}">-->
-            <!--<div class="panel panel-default" ng-repeat="recipe in recipes2 track by $index" ng-show="recipe.name" data-drag="true" data-jqyoui-options="{revert: 'invalid', helper: 'clone'}" ng-model="recipes2" jqyoui-draggable="{index: {{$index}},animate:true}">-->
-                <!--<div class="panel-body">-->
-                    <!--<img  data-ng-src="{{recipe.image}}" class="face md-avatar" />-->
-                    <!--<p>{{ recipe.name }}</p>-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--<p class="placeholder" ng-hide="hideMe()">Add your items here</p>-->
-        <!--</div>-->
     </div>
 
 </section>
