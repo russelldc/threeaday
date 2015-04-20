@@ -18,6 +18,14 @@ var MealplanSchema = new Schema({
 	user: {
 		type: Schema.ObjectId,
 		ref: 'User'
+	},
+	meal: {
+		type: Schema.ObjectId,
+		ref: 'Recipe'
+	},
+	date: {
+		type: Date,
+		default: Date.now
 	}
 });
 

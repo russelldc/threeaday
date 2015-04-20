@@ -74,19 +74,46 @@ angular.module('mealplans').controller('MealplansController', ['$scope', '$state
 			});
 		};
 
+		$scope.message = {
+			text: 'hello world!',
+			time: new Date()
+		};
+
+		$scope.mealDateList = [{name: 'mealOne'}, {name: 'mealTwo'}, {name: 'mealThree'}, {name: 'mealFour'}, {name: 'mealFive'}];
+
+		Date.prototype.yyyymmdd = function() {
+			var yyyy = this.getFullYear().toString();
+			var mm = (this.getMonth()+1).toString(); // getMonth() is zero-based
+			var dd  = this.getDate().toString();
+			return yyyy + '-' + (mm[1]?mm:"0"+mm[0]) + '-' + (dd[1]?dd:"0"+dd[0]); // padding
+		};
+
+		var myDate = new Date();
+		for (var i = 0; i < $scope.mealDateList.length; i++) {
+			var dateName = $scope.mealDateList[i].name;
+			$scope[dateName] = myDate.yyyymmdd();
+
+			myDate.setDate(myDate.getDate() + 1);
+		}
+
+		$scope.breakfastList = [{name: 'breakOne'}, {name: 'breakTwo'}, {name: 'breakThree'}, {name: 'breakFour'}, {name: 'breakFive'}];
 		$scope.gridNames = [{name: 'breakOne'}, {name: 'breakTwo'}, {name: 'breakThree'}, {name: 'breakFour'}, {name: 'breakFive'},
 			{name: 'lunchOne'}, {name: 'lunchTwo'}, {name: 'lunchThree'}, {name: 'lunchFour'}, {name: 'lunchFive'},
 			{name: 'dinnerOne'}, {name: 'dinnerTwo'}, {name: 'dinnerThree'}, {name: 'dinnerFour'}, {name: 'dinnerFive'}];
 
-		for (var i = 0; i < $scope.gridNames.length; i++) {
+		function makeOptionsFunction (gridName) {
+			return function(dragEl) {
+				return ($scope[gridName].length === 0);
+			};
+		}
+
+		for (i = 0; i < $scope.gridNames.length; i++) {
 			var gridName = $scope.gridNames[i].name;
 			$scope[gridName] = [];
 
 			var optionsName = 'options' + gridName;
 			$scope[optionsName] = {
-				accept: function(dragEl) {
-					return ($scope[gridName].length === 0);
-				}
+				accept: makeOptionsFunction(gridName)
 			};
 		}
 
@@ -120,6 +147,10 @@ angular.module('mealplans').controller('MealplansController', ['$scope', '$state
 		};
 		$scope.onOut = function(e) {
 			angular.element(e.target).removeClass('meal-hover');
+		};
+		$scope.removeMeal = function(plan) {
+			$scope[plan] = [];
+
 		};
 	}
 ]);

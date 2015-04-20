@@ -4,7 +4,7 @@
 var ApplicationConfiguration = (function() {
 	// Init module configuration options
 	var applicationModuleName = 'threeaday';
-	var applicationModuleVendorDependencies = [ 'ngResource', 'ngCookies',  'ngAnimate',  'ngTouch',  'ngSanitize',  'ui.router', 'ui.bootstrap', 'ui.utils', 'ngMaterial', 'akoenig.deckgrid', 'ngDragDrop'];
+	var applicationModuleVendorDependencies = [ 'ngResource', 'ngCookies',  'ngAnimate',  'ngTouch',  'ngSanitize',  'ui.router', 'ui.bootstrap', 'ui.utils', 'ngMaterial', 'akoenig.deckgrid', 'ngDragDrop', 'angularMoment'];
 
 	// Add a new vertical module
 	var registerModule = function(moduleName, dependencies) {

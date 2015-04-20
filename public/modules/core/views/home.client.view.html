@@ -25,21 +25,22 @@
             <img class="circle" src="modules/core/img/brand/Pencil.png"/>
             <h2><span class="muted">1. </span>Add Your Recipes</h2>
 
-            <div class="description muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ornare mi a justo ultrices euismod. Nam sit amet viverra ex, nec porttitor tortor.
+            <div class="description muted">Add recipes from your own personal cookbook, or use threeaday to collect your favorite recipes from all over the web. Just enter the URL and it grabs them automatically!
             </div>
         </div>
         <div class="step two col-xs-6 col-md-4">
-            <img class="circle" src="modules/core/img/brand/Cake.png"/>
-            <h2><span class="muted">2. </span>Assemble Meals</h2>
+            <img class="circle" src="modules/core/img/brand/Clock.png"/>
+            <h2><span class="muted">2. </span>Plan Your Diet</h2>
 
-            <div class="description muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ornare mi a justo ultrices euismod. Nam sit amet viverra ex, nec porttitor tortor.
+            <div class="description muted">Use the intuitive drag and drop interface to plan out your week using the same meals you collect here on threeaday.
             </div>
         </div>
         <div class="step three col-xs-6 col-md-4">
-            <img class="circle" src="modules/core/img/brand/Clock.png"/>
-            <h2><span class="muted">3. </span>Plan Your Diet</h2>
-
-            <div class="description muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ornare mi a justo ultrices euismod. Nam sit amet viverra ex, nec porttitor tortor.
+            <img class="circle" src="modules/core/img/brand/Cake.png"/>
+            <h2><span class="muted">3. </span>Eat!</h2>
+            <div class="description muted">It's that simple.
+                <span data-ng-if="!menu.shouldRender(authentication.user);">Get started by clicking Sign In above!</span>
+                <span data-ng-if="menu.shouldRender(authentication.user);">Get started by clicking on the Recipes menu above!</span>
             </div>
         </div>
     </div>

@@ -63,9 +63,8 @@ md-whiteframe {
     height: 10em;
     border-radius: 4px;
     background: rgba(33, 150, 243,0.1);
-    overflow: auto;
+    overflow: hidden;
     white-space: nowrap;
-    overflow-x: hidden;
     text-overflow: ellipsis;
 }
 
@@ -114,4 +113,40 @@ md-whiteframe {
 
 .meal-hover {
     background: rgba(33, 150, 243,0.3);
+}
+
+.meal-card:hover .remove-meal {
+    display: block;
+    z-index: 1;
+}
+
+.meal-card:hover .meal-img {
+    opacity: 0.5;
+}
+
+md-card-content {
+    z-index: 3;
+}
+
+
+.remove-meal {
+    padding-top: 10px;
+    padding-right: 10px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: none;
+}
+
+.remove-meal a {
+    color: #000;
+    cursor: pointer;
+}
+
+.meal-date {
+    position: relative;
+    display: inline-block;
+    margin: 0 1% 1% 1%;
+    width: 15%;
+    text-align: center;
 }

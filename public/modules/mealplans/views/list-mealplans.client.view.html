@@ -26,12 +26,24 @@
 
     <div class="right-mealplan top-space col-sm-9">
         <div class="row">
+
+        </div>
+        <div class="row">
+            <div class="col-sm-1" style="margin: 0 1% 1% 1%;"> </div>
+            <div class="meal-date">{{mealOne  | date:'EEEE'}}<br>{{mealOne  | date:'MMMM dd'}}</div>
+            <div class="meal-date">{{mealTwo  | date:'EEEE'}}<br>{{mealTwo  | date:'MMMM dd'}}</div>
+            <div class="meal-date">{{mealThree  | date:'EEEE'}}<br>{{mealThree  | date:'MMMM dd'}}</div>
+            <div class="meal-date">{{mealFour  | date:'EEEE'}}<br>{{mealFour  | date:'MMMM dd'}} </div>
+            <div class="meal-date">{{mealFive  | date:'EEEE'}}<br>{{mealFive  | date:'MMMM dd'}}</div>
+        </div>
+        <div class="row">
             <div class="meal-row-title col-sm-1"><p>Breakfast</p></div>
 
             <div class="meal-grid-item" ng-model='breakOne' data-drop="true" jqyoui-droppable="{onOver: 'onOver', onOut: 'onOut', onDrop: 'onOut'}" data-jqyoui-options="optionsbreakOne">
                 <i class="fa fa-plus fa-3 add-meal-icon" ng-show="emptyBox(breakOne)"></i>
                 <md-card class="meal-card" ng-repeat="meal in breakOne track by $index">
-                    <a data-ng-href="#!/recipes/{{meal._id}}" ><img data-ng-src="{{meal.image}}"></a>
+                    <div class="remove-meal"><a ng-click="removeMeal('breakOne')"><i class="fa fa-trash-o fa-2x"></i></a></div>
+                    <a class="meal-img" data-ng-href="#!/recipes/{{meal._id}}" ><img data-ng-src="{{meal.image}}"></a>
                     <md-card-content class="panel-footer">
                         <div class="card-text">{{ meal.name }}</div>
                     </md-card-content>
@@ -41,32 +53,161 @@
             <div class="meal-grid-item" ng-model='breakTwo' data-drop="true" jqyoui-droppable="{onOver: 'onOver', onOut: 'onOut', onDrop: 'onOut'}" data-jqyoui-options="optionsbreakTwo">
                 <i class="fa fa-plus fa-3 add-meal-icon" ng-show="emptyBox(breakTwo)"></i>
                 <md-card class="meal-card" ng-repeat="meal in breakTwo track by $index">
-                    <a data-ng-href="#!/recipes/{{meal._id}}" ><img data-ng-src="{{meal.image}}"></a>
+                    <div class="remove-meal"><a ng-click="removeMeal('breakTwo')"><i class="fa fa-trash-o fa-2x"></i></a></div>
+                    <a class="meal-img" data-ng-href="#!/recipes/{{meal._id}}" ><img data-ng-src="{{meal.image}}"></a>
                     <md-card-content class="panel-footer">
                         <div class="card-text">{{ meal.name }}</div>
                     </md-card-content>
                 </md-card>
             </div>
 
-            <div class="meal-grid-item"> </div>
-            <div class="meal-grid-item"> </div>
-            <div class="meal-grid-item"> </div>
+            <div class="meal-grid-item" ng-model='breakThree' data-drop="true" jqyoui-droppable="{onOver: 'onOver', onOut: 'onOut', onDrop: 'onOut'}" data-jqyoui-options="optionsbreakThree">
+                <i class="fa fa-plus fa-3 add-meal-icon" ng-show="emptyBox(breakThree)"></i>
+                <md-card class="meal-card" ng-repeat="meal in breakThree track by $index">
+                    <div class="remove-meal"><a ng-click="removeMeal('breakThree')"><i class="fa fa-trash-o fa-2x"></i></a></div>
+                    <a class="meal-img" data-ng-href="#!/recipes/{{meal._id}}" ><img data-ng-src="{{meal.image}}"></a>
+                    <md-card-content class="panel-footer">
+                        <div class="card-text">{{ meal.name }}</div>
+                    </md-card-content>
+                </md-card>
+            </div>
+
+            <div class="meal-grid-item" ng-model='breakFour' data-drop="true" jqyoui-droppable="{onOver: 'onOver', onOut: 'onOut', onDrop: 'onOut'}" data-jqyoui-options="optionsbreakFour">
+                <i class="fa fa-plus fa-3 add-meal-icon" ng-show="emptyBox(breakFour)"></i>
+                <md-card class="meal-card" ng-repeat="meal in breakFour track by $index">
+                    <div class="remove-meal"><a ng-click="removeMeal('breakFour')"><i class="fa fa-trash-o fa-2x"></i></a></div>
+                    <a class="meal-img" data-ng-href="#!/recipes/{{meal._id}}" ><img data-ng-src="{{meal.image}}"></a>
+                    <md-card-content class="panel-footer">
+                        <div class="card-text">{{ meal.name }}</div>
+                    </md-card-content>
+                </md-card>
+            </div>
+
+            <div class="meal-grid-item" ng-model='breakFive' data-drop="true" jqyoui-droppable="{onOver: 'onOver', onOut: 'onOut', onDrop: 'onOut'}" data-jqyoui-options="optionsbreakFive">
+                <i class="fa fa-plus fa-3 add-meal-icon" ng-show="emptyBox(breakFive)"></i>
+                <md-card class="meal-card" ng-repeat="meal in breakFive track by $index">
+                    <div class="remove-meal"><a ng-click="removeMeal('breakFive')"><i class="fa fa-trash-o fa-2x"></i></a></div>
+                    <a class="meal-img" data-ng-href="#!/recipes/{{meal._id}}" ><img data-ng-src="{{meal.image}}"></a>
+                    <md-card-content class="panel-footer">
+                        <div class="card-text">{{ meal.name }}</div>
+                    </md-card-content>
+                </md-card>
+            </div>
         </div>
         <div class="row">
             <div class="meal-row-title col-sm-1"><p>Lunch</p></div>
-            <div class="meal-grid-item"> </div>
-            <div class="meal-grid-item"> </div>
-            <div class="meal-grid-item"> </div>
-            <div class="meal-grid-item"> </div>
-            <div class="meal-grid-item"> </div>
+
+            <div class="meal-grid-item" ng-model='lunchOne' data-drop="true" jqyoui-droppable="{onOver: 'onOver', onOut: 'onOut', onDrop: 'onOut'}" data-jqyoui-options="optionslunchOne">
+                <i class="fa fa-plus fa-3 add-meal-icon" ng-show="emptyBox(lunchOne)"></i>
+                <md-card class="meal-card" ng-repeat="meal in lunchOne track by $index">
+                    <div class="remove-meal"><a ng-click="removeMeal('lunchOne')"><i class="fa fa-trash-o fa-2x"></i></a></div>
+                    <a class="meal-img" data-ng-href="#!/recipes/{{meal._id}}" ><img data-ng-src="{{meal.image}}"></a>
+                    <md-card-content class="panel-footer">
+                        <div class="card-text">{{ meal.name }}</div>
+                    </md-card-content>
+                </md-card>
+            </div>
+
+            <div class="meal-grid-item" ng-model='lunchTwo' data-drop="true" jqyoui-droppable="{onOver: 'onOver', onOut: 'onOut', onDrop: 'onOut'}" data-jqyoui-options="optionslunchTwo">
+                <i class="fa fa-plus fa-3 add-meal-icon" ng-show="emptyBox(lunchTwo)"></i>
+                <md-card class="meal-card" ng-repeat="meal in lunchTwo track by $index">
+                    <div class="remove-meal"><a ng-click="removeMeal('lunchTwo')"><i class="fa fa-trash-o fa-2x"></i></a></div>
+                    <a class="meal-img" data-ng-href="#!/recipes/{{meal._id}}" ><img data-ng-src="{{meal.image}}"></a>
+                    <md-card-content class="panel-footer">
+                        <div class="card-text">{{ meal.name }}</div>
+                    </md-card-content>
+                </md-card>
+            </div>
+
+            <div class="meal-grid-item" ng-model='lunchThree' data-drop="true" jqyoui-droppable="{onOver: 'onOver', onOut: 'onOut', onDrop: 'onOut'}" data-jqyoui-options="optionslunchThree">
+                <i class="fa fa-plus fa-3 add-meal-icon" ng-show="emptyBox(lunchThree)"></i>
+                <md-card class="meal-card" ng-repeat="meal in lunchThree track by $index">
+                    <div class="remove-meal"><a ng-click="removeMeal('lunchThree')"><i class="fa fa-trash-o fa-2x"></i></a></div>
+                    <a class="meal-img" data-ng-href="#!/recipes/{{meal._id}}" ><img data-ng-src="{{meal.image}}"></a>
+                    <md-card-content class="panel-footer">
+                        <div class="card-text">{{ meal.name }}</div>
+                    </md-card-content>
+                </md-card>
+            </div>
+
+            <div class="meal-grid-item" ng-model='lunchFour' data-drop="true" jqyoui-droppable="{onOver: 'onOver', onOut: 'onOut', onDrop: 'onOut'}" data-jqyoui-options="optionslunchFour">
+                <i class="fa fa-plus fa-3 add-meal-icon" ng-show="emptyBox(lunchFour)"></i>
+                <md-card class="meal-card" ng-repeat="meal in lunchFour track by $index">
+                    <div class="remove-meal"><a ng-click="removeMeal('lunchFour')"><i class="fa fa-trash-o fa-2x"></i></a></div>
+                    <a class="meal-img" data-ng-href="#!/recipes/{{meal._id}}" ><img data-ng-src="{{meal.image}}"></a>
+                    <md-card-content class="panel-footer">
+                        <div class="card-text">{{ meal.name }}</div>
+                    </md-card-content>
+                </md-card>
+            </div>
+
+            <div class="meal-grid-item" ng-model='lunchFive' data-drop="true" jqyoui-droppable="{onOver: 'onOver', onOut: 'onOut', onDrop: 'onOut'}" data-jqyoui-options="optionslunchFive">
+                <i class="fa fa-plus fa-3 add-meal-icon" ng-show="emptyBox(lunchFive)"></i>
+                <md-card class="meal-card" ng-repeat="meal in lunchFive track by $index">
+                    <div class="remove-meal"><a ng-click="removeMeal('lunchFive')"><i class="fa fa-trash-o fa-2x"></i></a></div>
+                    <a class="meal-img" data-ng-href="#!/recipes/{{meal._id}}" ><img data-ng-src="{{meal.image}}"></a>
+                    <md-card-content class="panel-footer">
+                        <div class="card-text">{{ meal.name }}</div>
+                    </md-card-content>
+                </md-card>
+            </div>
         </div>
         <div class="row">
             <div class="meal-row-title col-sm-1"><p>Dinner</p></div>
-            <div class="meal-grid-item"> </div>
-            <div class="meal-grid-item"> </div>
-            <div class="meal-grid-item"> </div>
-            <div class="meal-grid-item"> </div>
-            <div class="meal-grid-item"> </div>
+            <div class="meal-grid-item" ng-model='dinnerOne' data-drop="true" jqyoui-droppable="{onOver: 'onOver', onOut: 'onOut', onDrop: 'onOut'}" data-jqyoui-options="optionsdinnerOne">
+                <i class="fa fa-plus fa-3 add-meal-icon" ng-show="emptyBox(dinnerOne)"></i>
+                <md-card class="meal-card" ng-repeat="meal in dinnerOne track by $index">
+                    <div class="remove-meal"><a ng-click="removeMeal('dinnerOne')"><i class="fa fa-trash-o fa-2x"></i></a></div>
+                    <a class="meal-img" data-ng-href="#!/recipes/{{meal._id}}" ><img data-ng-src="{{meal.image}}"></a>
+                    <md-card-content class="panel-footer">
+                        <div class="card-text">{{ meal.name }}</div>
+                    </md-card-content>
+                </md-card>
+            </div>
+
+            <div class="meal-grid-item" ng-model='dinnerTwo' data-drop="true" jqyoui-droppable="{onOver: 'onOver', onOut: 'onOut', onDrop: 'onOut'}" data-jqyoui-options="optionsdinnerTwo">
+                <i class="fa fa-plus fa-3 add-meal-icon" ng-show="emptyBox(dinnerTwo)"></i>
+                <md-card class="meal-card" ng-repeat="meal in dinnerTwo track by $index">
+                    <div class="remove-meal"><a ng-click="removeMeal('dinnerTwo')"><i class="fa fa-trash-o fa-2x"></i></a></div>
+                    <a class="meal-img" data-ng-href="#!/recipes/{{meal._id}}" ><img data-ng-src="{{meal.image}}"></a>
+                    <md-card-content class="panel-footer">
+                        <div class="card-text">{{ meal.name }}</div>
+                    </md-card-content>
+                </md-card>
+            </div>
+
+            <div class="meal-grid-item" ng-model='dinnerThree' data-drop="true" jqyoui-droppable="{onOver: 'onOver', onOut: 'onOut', onDrop: 'onOut'}" data-jqyoui-options="optionsdinnerThree">
+                <i class="fa fa-plus fa-3 add-meal-icon" ng-show="emptyBox(dinnerThree)"></i>
+                <md-card class="meal-card" ng-repeat="meal in dinnerThree track by $index">
+                    <div class="remove-meal"><a ng-click="removeMeal('dinnerThree')"><i class="fa fa-trash-o fa-2x"></i></a></div>
+                    <a class="meal-img" data-ng-href="#!/recipes/{{meal._id}}" ><img data-ng-src="{{meal.image}}"></a>
+                    <md-card-content class="panel-footer">
+                        <div class="card-text">{{ meal.name }}</div>
+                    </md-card-content>
+                </md-card>
+            </div>
+
+            <div class="meal-grid-item" ng-model='dinnerFour' data-drop="true" jqyoui-droppable="{onOver: 'onOver', onOut: 'onOut', onDrop: 'onOut'}" data-jqyoui-options="optionsdinnerFour">
+                <i class="fa fa-plus fa-3 add-meal-icon" ng-show="emptyBox(dinnerFour)"></i>
+                <md-card class="meal-card" ng-repeat="meal in dinnerFour track by $index">
+                    <div class="remove-meal"><a ng-click="removeMeal('dinnerFour')"><i class="fa fa-trash-o fa-2x"></i></a></div>
+                    <a class="meal-img" data-ng-href="#!/recipes/{{meal._id}}" ><img data-ng-src="{{meal.image}}"></a>
+                    <md-card-content class="panel-footer">
+                        <div class="card-text">{{ meal.name }}</div>
+                    </md-card-content>
+                </md-card>
+            </div>
+
+            <div class="meal-grid-item" ng-model='dinnerFive' data-drop="true" jqyoui-droppable="{onOver: 'onOver', onOut: 'onOut', onDrop: 'onOut'}" data-jqyoui-options="optionsdinnerFive">
+                <i class="fa fa-plus fa-3 add-meal-icon" ng-show="emptyBox(dinnerFive)"></i>
+                <md-card class="meal-card" ng-repeat="meal in dinnerFive track by $index">
+                    <div class="remove-meal"><a ng-click="removeMeal('dinnerFive')"><i class="fa fa-trash-o fa-2x"></i></a></div>
+                    <a class="meal-img" data-ng-href="#!/recipes/{{meal._id}}" ><img data-ng-src="{{meal.image}}"></a>
+                    <md-card-content class="panel-footer">
+                        <div class="card-text">{{ meal.name }}</div>
+                    </md-card-content>
+                </md-card>
+            </div>
         </div>
     </div>
 

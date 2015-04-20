@@ -1,3 +1,17 @@
+## Notes
+
+Work in progress. Hosted at http://threeaday.russelldc.me
+
+Caution: Tested primarily in Chrome, there can be visual bugs in other browsers at the moment.
+
+## Future Features
+
+* Build meals out of several recipes
+* Categorize recipes/meals
+* Use a nutrition API to display nutritional facts for recipes
+* Break down recipes by servings
+* Add additional external recipe sources
+
 ## How to Run
 
 Make sure you have installed all these prerequisites
