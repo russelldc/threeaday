@@ -13,7 +13,8 @@
                     <input ng-model="search.name">
                 </md-input-container>
 
-                <div ng-repeat="recipe in filteredRecipes = recipes | filter:search | startFrom:(currentPage-1)*entryLimit | limitTo:entryLimit" class="panel panel-default"  ng-model="filteredRecipes" data-drag="true" data-jqyoui-options="{revert: 'invalid', helper: 'clone'}" jqyoui-draggable="{index: {{$index}}, placeholder: 'keep'}">
+                <div ng-repeat="recipe in filteredRecipes = recipes | filter:search | startFrom:(currentPage-1)*entryLimit | limitTo:entryLimit" class="panel panel-default"
+                     ng-model="filteredRecipes" data-drag="true" data-jqyoui-options="{revert: 'invalid', helper: 'clone'}" jqyoui-draggable="{index: getCustomIndex($index), placeholder: 'keep', onStart: 'onStart'}">
                     <div class="panel-body">
                         <img  data-ng-src="{{recipe.image}}" class="meal-list-face" />
                         <p class="meal-list-text">{{ recipe.name }}</p>
@@ -39,7 +40,7 @@
         <div class="row">
             <div class="meal-row-title col-sm-1"><p>Breakfast</p></div>
 
-            <div class="meal-grid-item" ng-model='breakOne' data-drop="true" jqyoui-droppable="{onOver: 'onOver', onOut: 'onOut', onDrop: 'onOut'}" data-jqyoui-options="optionsbreakOne">
+            <div class="meal-grid-item" ng-model='breakOne' data-drop="true" jqyoui-droppable="{onOver: 'onOver', onOut: 'onOut', onDrop: 'onDrop'}" data-jqyoui-options="optionsbreakOne">
                 <i class="fa fa-plus fa-3 add-meal-icon" ng-show="emptyBox(breakOne)"></i>
                 <md-card class="meal-card" ng-repeat="meal in breakOne track by $index">
                     <div class="remove-meal"><a ng-click="removeMeal('breakOne')"><i class="fa fa-trash-o fa-2x"></i></a></div>

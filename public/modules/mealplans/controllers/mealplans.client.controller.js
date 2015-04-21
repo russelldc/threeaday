@@ -23,6 +23,7 @@ angular.module('mealplans').controller('MealplansController', ['$scope', '$state
 		};
 
 		$scope.filters =  {};
+		$scope.customIndex = 0;
 
 		$scope.updateFilter = function(searchText) {
 			if (searchText === '') {
@@ -83,9 +84,9 @@ angular.module('mealplans').controller('MealplansController', ['$scope', '$state
 
 		Date.prototype.yyyymmdd = function() {
 			var yyyy = this.getFullYear().toString();
-			var mm = (this.getMonth()+1).toString(); // getMonth() is zero-based
+			var mm = (this.getMonth()+1).toString();
 			var dd  = this.getDate().toString();
-			return yyyy + '-' + (mm[1]?mm:"0"+mm[0]) + '-' + (dd[1]?dd:"0"+dd[0]); // padding
+			return yyyy + '-' + (mm[1]?mm:'0'+mm[0]) + '-' + (dd[1]?dd:'0'+dd[0]);
 		};
 
 		var myDate = new Date();
@@ -133,6 +134,7 @@ angular.module('mealplans').controller('MealplansController', ['$scope', '$state
 		// $watch search to update pagination
 		$scope.$watch('search', function (newVal, oldVal) {
 			$scope.filteredRecipes = filterFilter($scope.recipes, newVal);
+			$scope.realFilteredRecipes = $scope.filteredRecipes;
 			$scope.totalItems = $scope.filteredRecipes.length;
 			$scope.noOfPages = Math.ceil($scope.totalItems / $scope.entryLimit);
 			$scope.currentPage = 1;
@@ -142,10 +144,34 @@ angular.module('mealplans').controller('MealplansController', ['$scope', '$state
 			return plan.length === 0;
 		};
 
+		$scope.onStart = function(e) {
+			//var title = angular.element(e.target)[0].textContent.trim() || angular.element(e.target)[0].innerText.trim();
+            //
+			//for (var i = 0; i < $scope.recipes.length; i++) {
+			//	var recipeName = $scope.recipes[i].name;
+			//	if (title === recipeName) {
+			//		$scope.customIndex = i;
+			//		break;
+			//	}
+			//}
+		};
+		$scope.getCustomIndex = function(e) {
+			e = e + ($scope.currentPage * $scope.entryLimit) - $scope.entryLimit;
+			var title = $scope.realFilteredRecipes[e]? $scope.realFilteredRecipes[e].name : $scope.filteredRecipes[e].name;
+			for (var i = 0; i < $scope.recipes.length; i++) {
+				var recipeName = $scope.recipes[i].name;
+				if (title === recipeName) {
+					return i;
+				}
+			}
+		};
 		$scope.onOver = function(e) {
 			angular.element(e.target).addClass('meal-hover');
 		};
 		$scope.onOut = function(e) {
+			angular.element(e.target).removeClass('meal-hover');
+		};
+		$scope.onDrop = function(e) {
 			angular.element(e.target).removeClass('meal-hover');
 		};
 		$scope.removeMeal = function(plan) {
