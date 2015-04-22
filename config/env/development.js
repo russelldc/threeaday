@@ -1,9 +1,9 @@
 'use strict';
 
 module.exports = {
-	db: 'mongodb://localhost/threeaday-dev',
+	db: process.env.MONGOHQ_URL || process.env.MONGOLAB_URI || 'mongodb://localhost/threeaday-dev',
 	app: {
-		title: 'threeaday - Development Environment'
+		title: 'threeaday'
 	},
 	facebook: {
 		clientID: process.env.FACEBOOK_ID || '523145184486195',
