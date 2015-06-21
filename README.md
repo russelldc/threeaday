@@ -1,6 +1,8 @@
 ## Notes
 
-Work in progress. Hosted at http://threeaday.russelldc.me
+Work in progress. 
+
+Demo available at http://threeaday.russelldc.me (Hosted on a slow free-tier Joyent server)
 
 Caution: Tested primarily in Chrome, there can be visual bugs in other browsers at the moment.
 Some (most) parts of the app are mobile friendly but mobile responsiveness is not a priority right now so major features, like the meal plan calendar, are broken on phones.
