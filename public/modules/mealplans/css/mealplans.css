@@ -74,7 +74,6 @@ md-whiteframe {
     top: 50%;
     margin-bottom: 0;
     transform: translateY(-50%);
-
 }
 
 .meal-row-title {
@@ -131,8 +130,6 @@ md-whiteframe {
     -webkit-user-drag: none;
 }
 
-
-
 md-card-content {
     z-index: 3;
 }
@@ -166,6 +163,10 @@ md-card-content {
 
     .meal-grid-item, .meal-row-title {
         height: 8em;
+    }
+
+    .meal-row-title, .date-spacer {
+        margin-right: 20px !important;
     }
 }
 
