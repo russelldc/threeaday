@@ -26,6 +26,10 @@ var MealplanSchema = new Schema({
 	date: {
 		type: Date,
 		default: Date.now
+	},
+	mealType: {
+		type: String,
+		default: ''
 	}
 });
 

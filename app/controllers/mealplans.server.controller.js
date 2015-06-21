@@ -73,7 +73,7 @@ exports.delete = function(req, res) {
  * List of Mealplans
  */
 exports.list = function(req, res) { 
-	Mealplan.find().sort('-created').populate('user', 'displayName').exec(function(err, mealplans) {
+	Mealplan.find().sort('-created').populate('user', 'displayName').populate('meal').exec(function(err, mealplans) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
@@ -88,7 +88,7 @@ exports.list = function(req, res) {
  * Mealplan middleware
  */
 exports.mealplanByID = function(req, res, next, id) { 
-	Mealplan.findById(id).populate('user', 'displayName').exec(function(err, mealplan) {
+	Mealplan.findById(id).populate('user', 'displayName').populate('meal').exec(function(err, mealplan) {
 		if (err) return next(err);
 		if (! mealplan) return next(new Error('Failed to load Mealplan ' + id));
 		req.mealplan = mealplan ;

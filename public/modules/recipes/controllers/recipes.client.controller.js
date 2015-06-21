@@ -69,12 +69,14 @@ angular.module('recipes').controller('RecipesController', ['$scope', '$http', '$
 					$scope.recipe.ingredients.forEach(function(element, index) {
 						$scope.recipe.ingredientsList += element + '\n';
 					});
+					$scope.recipe.ingredientsList = $scope.recipe.ingredientsList.substring(0, $scope.recipe.ingredientsList.length - 1);
 
 					$scope.recipe.directionsList = '';
 
 					$scope.recipe.directions.forEach(function(element, index) {
 						$scope.recipe.directionsList += element + '\n';
 					});
+					$scope.recipe.directionsList = $scope.recipe.directionsList.substring(0, $scope.recipe.directionsList.length - 1);
 				});
 		};
 

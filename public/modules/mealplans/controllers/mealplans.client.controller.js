@@ -1,7 +1,7 @@
 'use strict';
 // Mealplans controller
-angular.module('mealplans').controller('MealplansController', ['$scope', '$stateParams', '$location', '$mdSidenav', 'filterFilter', 'Authentication', 'Mealplans', 'Recipes',
-	function($scope, $stateParams, $location, $mdSidenav, filterFilter, Authentication, Mealplans, Recipes) {
+angular.module('mealplans').controller('MealplansController', ['$scope', '$stateParams', '$location', '$timeout', '$http', '$mdSidenav', 'filterFilter', 'Authentication', 'Mealplans', 'Recipes', 'moment',
+	function($scope, $stateParams, $location, $timeout, $http, $mdSidenav, filterFilter, Authentication, Mealplans, Recipes, moment) {
 		$scope.authentication = Authentication;
 
 		// Create new Mealplan
@@ -51,33 +51,31 @@ angular.module('mealplans').controller('MealplansController', ['$scope', '$state
 			}
 		};
 
-		// Update existing Mealplan
-		$scope.update = function() {
-			var mealplan = $scope.mealplan;
+		// Find a list of Mealplans
+		$scope.find = function() {
+			$scope.mealplans = Mealplans.query(function(mealplans) {
 
-			mealplan.$update(function() {
-				$location.path('mealplans/' + mealplan._id);
-			}, function(errorResponse) {
-				$scope.error = errorResponse.data.message;
+				angular.forEach(mealplans, function(currentMealPlan, key) {
+					var mealDate = new Date(currentMealPlan.date).yyyymmdd();
+
+					for (var i = 0; i < $scope.mealDateList.length; i++) {
+						if ($scope[$scope.mealDateList[i].name] === mealDate) {
+							var mealSpot =  ($scope.mealDateList[i].name).substring(4);
+							currentMealPlan.meal.plan = currentMealPlan;
+							$scope[currentMealPlan.mealType + mealSpot][0] = currentMealPlan.meal;
+							break;
+						}
+					}
+				});
 			});
 		};
 
-		// Find a list of Mealplans
-		$scope.find = function() {
-			$scope.mealplans = Mealplans.query();
-
-		};
 		$scope.recipes = Recipes.query();
 		// Find existing Mealplan
 		$scope.findOne = function() {
 			$scope.mealplan = Mealplans.get({ 
 				mealplanId: $stateParams.mealplanId
 			});
-		};
-
-		$scope.message = {
-			text: 'hello world!',
-			time: new Date()
 		};
 
 		$scope.mealDateList = [{name: 'mealOne'}, {name: 'mealTwo'}, {name: 'mealThree'}, {name: 'mealFour'}, {name: 'mealFive'}];
@@ -89,13 +87,29 @@ angular.module('mealplans').controller('MealplansController', ['$scope', '$state
 			return yyyy + '-' + (mm[1]?mm:'0'+mm[0]) + '-' + (dd[1]?dd:'0'+dd[0]);
 		};
 
-		var myDate = new Date();
-		for (var i = 0; i < $scope.mealDateList.length; i++) {
-			var dateName = $scope.mealDateList[i].name;
-			$scope[dateName] = myDate.yyyymmdd();
-
-			myDate.setDate(myDate.getDate() + 1);
+		function setCalendarDates(dateObject) {
+			for (var i = 0; i < $scope.mealDateList.length; i++) {
+				var dateName = $scope.mealDateList[i].name;
+				$scope[dateName] = dateObject.yyyymmdd();
+				dateObject.setDate(dateObject.getDate() + 1);
+			}
 		}
+		var myDate = new Date();
+		setCalendarDates(myDate);
+
+		$scope.moveDatesBackward = function() {
+			myDate.setDate(myDate.getDate() - 10);
+			setCalendarDates(myDate);
+			emptyGrid();
+			$scope.find();
+		};
+
+		$scope.moveDatesForward = function() {
+			myDate.setDate(myDate.getDate());
+			setCalendarDates(myDate);
+			emptyGrid();
+			$scope.find();
+		};
 
 		$scope.breakfastList = [{name: 'breakOne'}, {name: 'breakTwo'}, {name: 'breakThree'}, {name: 'breakFour'}, {name: 'breakFive'}];
 		$scope.gridNames = [{name: 'breakOne'}, {name: 'breakTwo'}, {name: 'breakThree'}, {name: 'breakFour'}, {name: 'breakFive'},
@@ -108,7 +122,7 @@ angular.module('mealplans').controller('MealplansController', ['$scope', '$state
 			};
 		}
 
-		for (i = 0; i < $scope.gridNames.length; i++) {
+		for (var i = 0; i < $scope.gridNames.length; i++) {
 			var gridName = $scope.gridNames[i].name;
 			$scope[gridName] = [];
 
@@ -116,6 +130,18 @@ angular.module('mealplans').controller('MealplansController', ['$scope', '$state
 			$scope[optionsName] = {
 				accept: makeOptionsFunction(gridName)
 			};
+		}
+
+		function emptyGrid() {
+			for (var i = 0; i < $scope.gridNames.length; i++) {
+				var gridName = $scope.gridNames[i].name;
+				$scope[gridName] = [];
+
+				var optionsName = 'options' + gridName;
+				$scope[optionsName] = {
+					accept: makeOptionsFunction(gridName)
+				};
+			}
 		}
 
 		$scope.search = {};
@@ -145,16 +171,8 @@ angular.module('mealplans').controller('MealplansController', ['$scope', '$state
 		};
 
 		$scope.onStart = function(e) {
-			//var title = angular.element(e.target)[0].textContent.trim() || angular.element(e.target)[0].innerText.trim();
-            //
-			//for (var i = 0; i < $scope.recipes.length; i++) {
-			//	var recipeName = $scope.recipes[i].name;
-			//	if (title === recipeName) {
-			//		$scope.customIndex = i;
-			//		break;
-			//	}
-			//}
 		};
+
 		$scope.getCustomIndex = function(e) {
 			e = e + ($scope.currentPage * $scope.entryLimit) - $scope.entryLimit;
 			var title = $scope.realFilteredRecipes[e]? $scope.realFilteredRecipes[e].name : $scope.filteredRecipes[e].name;
@@ -173,10 +191,45 @@ angular.module('mealplans').controller('MealplansController', ['$scope', '$state
 		};
 		$scope.onDrop = function(e) {
 			angular.element(e.target).removeClass('meal-hover');
-		};
-		$scope.removeMeal = function(plan) {
-			$scope[plan] = [];
+			angular.element(e.target).addClass('wiggle');
 
+			$timeout(function() {
+				// get recipe ID
+				var recipeID = e.target.children[1].children[1].hash.substring(11);
+
+				// get date and meal type
+				var type = e.target.id.split('-')[0];
+				var mealDateTemp = e.target.id.split('-')[1];
+
+				var newMealPlan = {
+					meal: recipeID,
+					date: new moment($scope['meal'+mealDateTemp]),
+					mealType: type
+				};
+
+				var realMealPlan = new Mealplans(newMealPlan);
+
+				realMealPlan.$save(function() {
+					$scope[type+mealDateTemp][0].plan = realMealPlan;
+
+				}, function(errorResponse) {
+					$scope.error = errorResponse.data.message;
+				});
+			}, 250);
+
+			$timeout(function() {
+				angular.element(e.target).removeClass('wiggle');
+			}, 500);
+
+
+
+		};
+		$scope.removeMeal = function(meal) {
+			// delete plan from server
+			$scope.remove($scope[meal][0].plan);
+
+			// remove from grid
+			$scope[meal] = [];
 		};
 	}
 ]);
