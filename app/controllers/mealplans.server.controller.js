@@ -73,7 +73,7 @@ exports.delete = function(req, res) {
  * List of Mealplans
  */
 exports.list = function(req, res) { 
-	Mealplan.find().sort('-created').populate('user', 'displayName').populate('meal').exec(function(err, mealplans) {
+	Mealplan.find({ user: req.user.id }).sort('-created').populate('user', 'displayName').populate('meal').exec(function(err, mealplans) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
