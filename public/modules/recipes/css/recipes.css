@@ -109,3 +109,7 @@ md-list > md-item:last-child > div {
 .supported-sites > a {
     display: block;
 }
+
+.search-recipes-input {
+    margin-top: 25px;
+}

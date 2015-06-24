@@ -1,8 +1,8 @@
 'use strict';
 
 // Recipes controller
-angular.module('recipes').controller('RecipesController', ['$scope', '$http', '$stateParams', '$location', 'Authentication', 'Recipes', '$mdToast',
-	function($scope, $http, $stateParams, $location, Authentication, Recipes, $mdToast) {
+angular.module('recipes').controller('RecipesController', ['$scope', '$http', '$stateParams', '$location', 'filterFilter', 'Authentication', 'Recipes', '$mdToast',
+	function($scope, $http, $stateParams, $location, filterFilter, Authentication, Recipes, $mdToast) {
 		$scope.authentication = Authentication;
 		// Create new Recipe
 		$scope.create = function() {
@@ -56,6 +56,7 @@ angular.module('recipes').controller('RecipesController', ['$scope', '$http', '$
 		// Find a list of Recipes
 		$scope.find = function() {
 			$scope.recipes = Recipes.query();
+			$scope.recipesCopy = $scope.recipes;
 		};
 
 		// Find existing Recipe
@@ -101,16 +102,15 @@ angular.module('recipes').controller('RecipesController', ['$scope', '$http', '$
 			});
 		};
 
-		$scope.filters =  {};
-
 		$scope.updateFilter = function(searchText) {
 			if (searchText === '') {
-				$scope.filters = {};
+				var filters = {};
 			}
 			else {
-				$scope.filters = {name : searchText};
+				var filters = {name : searchText};
 			}
-		};
 
+			$scope.recipes = filterFilter($scope.recipesCopy, filters);
+		};
 	}
 ]);
