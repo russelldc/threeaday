@@ -3,6 +3,7 @@
 angular.module('mealplans').controller('MealplansController', ['$scope', '$stateParams', '$location', '$timeout', '$http', '$mdSidenav', 'filterFilter', 'Authentication', 'Mealplans', 'Recipes', 'moment',
 	function($scope, $stateParams, $location, $timeout, $http, $mdSidenav, filterFilter, Authentication, Mealplans, Recipes, moment) {
 		$scope.authentication = Authentication;
+		$scope.isLoadingMealplan = true;
 
 		// Create new Mealplan
 		$scope.create = function() {
@@ -66,6 +67,8 @@ angular.module('mealplans').controller('MealplansController', ['$scope', '$state
 							break;
 						}
 					}
+
+					$scope.isLoadingMealplan = false;
 				});
 			});
 		};
@@ -98,6 +101,7 @@ angular.module('mealplans').controller('MealplansController', ['$scope', '$state
 		setCalendarDates(myDate);
 
 		$scope.moveDatesBackward = function() {
+			$scope.isLoadingMealplan = true;
 			myDate.setDate(myDate.getDate() - 10);
 			setCalendarDates(myDate);
 			emptyGrid();
@@ -105,6 +109,8 @@ angular.module('mealplans').controller('MealplansController', ['$scope', '$state
 		};
 
 		$scope.moveDatesForward = function() {
+
+			$scope.isLoadingMealplan = true;
 			myDate.setDate(myDate.getDate());
 			setCalendarDates(myDate);
 			emptyGrid();

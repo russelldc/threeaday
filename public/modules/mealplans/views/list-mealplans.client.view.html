@@ -50,7 +50,7 @@
             <div class="meal-date">{{mealFour  | date:'EEEE'}}<br>{{mealFour  | date:'MMMM dd'}} </div>
             <div class="meal-date">{{mealFive  | date:'EEEE'}}<br>{{mealFive  | date:'MMMM dd'}}</div>
         </div>
-        <div class="row">
+        <div class="row" ng-show="!isLoadingMealplan">
             <div class="meal-row-title col-sm-1"><p>Breakfast</p></div>
 
             <!--TODO: improve this section by modularizing the grid items. Directives, maybe?-->
@@ -111,7 +111,7 @@
                 </md-card>
             </div>
         </div>
-        <div class="row">
+        <div class="row" ng-show="!isLoadingMealplan">
             <div class="meal-row-title col-sm-1"><p>Lunch</p></div>
 
             <div id='lunch-One' class="meal-grid-item" ng-model='lunchOne' data-drop="true" jqyoui-droppable="{onOver: 'onOver', onOut: 'onOut', onDrop: 'onDrop'}" data-jqyoui-options="optionslunchOne">
@@ -169,7 +169,7 @@
                 </md-card>
             </div>
         </div>
-        <div class="row">
+        <div class="row" ng-show="!isLoadingMealplan">
             <div class="meal-row-title col-sm-1"><p>Dinner</p></div>
             <div id='dinner-One' class="meal-grid-item" ng-model='dinnerOne' data-drop="true" jqyoui-droppable="{onOver: 'onOver', onOut: 'onOut', onDrop: 'onDrop'}" data-jqyoui-options="optionsdinnerOne">
                 <i class="fa fa-plus fa-3 add-meal-icon" ng-show="emptyBox(dinnerOne)"></i>
@@ -226,6 +226,11 @@
                 </md-card>
             </div>
         </div>
+
+        <div  ng-class="{'spinner' : isLoadingMealplan}" >
+
+        </div>
+
     </div>
 </section>
 
