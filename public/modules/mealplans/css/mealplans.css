@@ -54,6 +54,7 @@ md-whiteframe {
 
 .recipe-bar-content {
     padding: 15px;
+    margin-bottom: 5px;
 }
 
 .meal-grid-item {
@@ -225,114 +226,49 @@ md-card-content {
     width: 100%;
 }
 
-.spinner {
-    width: 200px;
-    height: 200px;
-    border-radius: 100%;
-    background-color: #D8D8D8;
-    border: 5px solid #575757;
+.loader {
     position: relative;
-    left: 50%;
-    margin-top: 225px;
-    transform: translateX(-50%) translateY(-50%) translateZ(0);
-    background-image: url('http://i.imgur.com/FqoYvSI.jpg');
-    background-size: 200%;
-    -webkit-animation: gridLoop 10s infinite linear;
-    -webkit-backface-visibility: hidden;
-    overflow: hidden;
+    left: calc(50% - 20px);
+    margin-top: 135px;
 }
-
-@-webkit-keyframes gridLoop {
-    0% {
-        background-position: -5px 0%;
-        transform: translateX(-50%) translateY(-50%) translateZ(0) rotate(0deg);
+@keyframes loader {
+    0% { left: -100px }
+    100% { left: 110%; }
+}
+.loader > #box {
+    width: 100px;
+    height: 100px;
+    background: url('../img/loading-box.png');
+    background-size: cover;
+    animation: animate .5s linear infinite;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 3px;
+}
+@keyframes animate {
+    17% { border-bottom-right-radius: 3px; }
+    25% { transform: translateY(9px) rotate(22.5deg); }
+    50% {
+        transform: translateY(18px) scale(1,.9) rotate(45deg) ;
+        border-bottom-right-radius: 40px;
     }
-    10% {
-        background-position: -5px 50%;
-        transform: translateX(-50%) translateY(-50%) translateZ(0) rotate(0deg);
-    }
-    15% {
-        background-position: -5px 50%;
-        transform: translateX(-50%) translateY(-50%) translateZ(0) rotate(0deg);
-    }
-    17% {
-        background-position: -305px 50%;
-        transform: translateX(-50%) translateY(-50%) translateZ(0) rotate(0deg);
-    }
-    19% {
-        background-position: -305px 50%;
-        transform: translateX(-50%) translateY(-50%) translateZ(0) rotate(0deg);
-    }
-    25% {
-        background-position: -305px 00%;
-        transform: translateX(-50%) translateY(-50%) translateZ(0) rotate(0deg);
-    }
-    27% {
-        background-position: -305px 00%;
-        transform: translateX(-50%) translateY(-50%) translateZ(0) rotate(90deg);
-    }
-    35% {
-        background-position: -305px 200%;
-        transform: translateX(-50%) translateY(-50%) translateZ(0) rotate(90deg);
-    }
-    40% {
-        background-position: -305px 200%;
-        transform: translateX(-50%) translateY(-50%) translateZ(0) rotate(90deg);
-    }
-    45% {
-        background-position: -305px 100%;
-        transform: translateX(-50%) translateY(-50%) translateZ(0) rotate(90deg);
-    }
-    55% {
-        background-position: -105px 100%;
-        transform: translateX(-50%) translateY(-50%) translateZ(0) rotate(90deg);
-    }
-    60% {
-        background-position: -105px 100%;
-        transform: translateX(-50%) translateY(-50%) translateZ(0) rotate(270deg);
-    }
-    63% {
-        background-position: -105px 100%;
-        transform: translateX(-50%) translateY(-50%) translateZ(0) rotate(270deg);
-    }
-    70% {
-        background-position: 105px 0%;
-        transform: translateX(-50%) translateY(-50%) translateZ(0) rotate(270deg);
-    }
-    73% {
-        background-position: 105px 0%;
-        transform: translateX(-50%) translateY(-50%) translateZ(0) rotate(270deg);
-    }
-    75% {
-        background-position: 205px 0%;
-        transform: translateX(-50%) translateY(-50%) translateZ(0) rotate(270deg);
-    }
-    78% {
-        background-position: 205px 50%;
-        transform: translateX(-50%) translateY(-50%) translateZ(0) rotate(270deg);
-    }
-    82% {
-        background-position: 105px 150%;
-        transform: translateX(-50%) translateY(-50%) translateZ(0) rotate(270deg);
-    }
-    86% {
-        background-position: 105px 150%;
-        transform: translateX(-50%) translateY(-50%) translateZ(0) rotate(270deg);
-    }
-    88% {
-        background-position: 105px 120%;
-        transform: translateX(-50%) translateY(-50%) translateZ(0) rotate(360deg);
-    }
-    94% {
-        background-position: 105px 180%;
-        transform: translateX(-50%) translateY(-50%) translateZ(0) rotate(360deg);
-    }
-    98% {
-        background-position: 105px 180%;
-        transform: translateX(-50%) translateY(-50%) translateZ(0) rotate(360deg);
-    }
-    100% {
-        background-position: -5px 0%;
-        transform: translateX(-50%) translateY(-50%) translateZ(0) rotate(360deg);
+    75% { transform: translateY(9px) rotate(67.5deg); }
+    100% { transform: translateY(0) rotate(90deg); }
+}
+.loader > #shadow {
+    width: 100px;
+    height: 10px;
+    background: #000;
+    opacity: 0.1;
+    position: absolute;
+    top: 109px;
+    left: 0;
+    border-radius: 50%;
+    animation: shadow .5s linear infinite;
+}
+@keyframes shadow {
+    50% {
+        transform: scale(1.2,1);
     }
 }
